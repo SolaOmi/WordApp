@@ -3,6 +3,7 @@ package com.solaomi.wordapp;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
+import net.jeremybrooks.knicker.dto.WordOfTheDay;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,5 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
         TextView exampleTextView = (TextView) findViewById(R.id.example);
         exampleTextView.setText(word);
+
+        WordOfTheDay wordObj;
     }
 }
