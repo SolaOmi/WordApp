@@ -1,9 +1,8 @@
-*.iml
-.gradle
-/local.properties
-/.idea/workspace.xml
-/.idea/libraries
-.DS_Store
-/build
-/captures
-.externalNativeBuild
+.gradle/
+.idea/libraries/
+.idea/workspace.xml
+WordApp.iml
+app/app.iml
+build/
+local.properties
+app/src/main/res/values/secrets.xml
