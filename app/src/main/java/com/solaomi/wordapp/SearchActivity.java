@@ -9,12 +9,12 @@ import net.jeremybrooks.knicker.KnickerException;
 import net.jeremybrooks.knicker.WordsApi;
 import net.jeremybrooks.knicker.dto.WordOfTheDay;
 
-public class MainActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_search);
 
         WordOfTheDayAsyncTask task = new WordOfTheDayAsyncTask();
         task.execute();
