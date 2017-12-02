@@ -34,7 +34,7 @@ public class SearchActivity extends AppCompatActivity {
         String word = wordOfTheDay.getWord();
 
         // Find reference to the {@link TextView} in the layout and set text to Word-of-the-Day.
-        TextView exampleTextView = findViewById(R.id.example);
+        TextView exampleTextView = findViewById(R.id.word_of_the_day);
         exampleTextView.setText(word);
     }
 
