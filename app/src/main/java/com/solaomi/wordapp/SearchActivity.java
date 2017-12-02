@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+// Library for Wordnik API (http://developer.wordnik.com/).
 import net.jeremybrooks.knicker.KnickerException;
 import net.jeremybrooks.knicker.WordsApi;
 import net.jeremybrooks.knicker.dto.WordOfTheDay;
+
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -16,27 +18,40 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        // Kick off an {@link AsyncTask} to perform network request.
         WordOfTheDayAsyncTask task = new WordOfTheDayAsyncTask();
         task.execute();
     }
 
-    private void updateUI(WordOfTheDay wordObj) {
+    /**
+     * Update the screen to display the Wordnki API's Word-of-the-Day.
+     * @param wordOfTheDay is a WordOfTheDay object containing the Word-of-the-Day, including
+     *                     definitions and example sentences.
+     */
+    private void updateUI(WordOfTheDay wordOfTheDay) {
 
-        String word = "example";
+        // Word from wordOfTheDay object.
+        String word = wordOfTheDay.getWord();
 
-        if ( wordObj != null ) { word = wordObj.getWord(); }
-
-        TextView exampleTextView = (TextView) findViewById(R.id.example);
+        // Find reference to the {@link TextView} in the layout and set text to Word-of-the-Day.
+        TextView exampleTextView = findViewById(R.id.example);
         exampleTextView.setText(word);
     }
 
+    /**
+     * {@link AsyncTask} to perform the network request on a background thread, and then
+     * update the UI with WordOfTheDay Object.
+     */
     private class WordOfTheDayAsyncTask extends AsyncTask<Void, Void, WordOfTheDay> {
 
         @Override
         protected WordOfTheDay doInBackground(Void... voids) {
 
+            // Set API Key as a system property.
             System.setProperty("WORDNIK_API_KEY", getString(R.string.wordnik_api_key));
 
+            // Perform HTTP request and recieve JSON response back (converted to WordOfTheDay object
+            // by Knicker Library)
             try {
                 return WordsApi.wordOfTheDay();
             } catch (KnickerException e) {
@@ -45,9 +60,13 @@ public class SearchActivity extends AppCompatActivity {
             }
         }
 
+        /**
+         *  Update the screen with information from the given given WordOfTheDay object (which is
+         *  the result of {@link WordOfTheDayAsyncTask}).
+         */
         @Override
-        protected void onPostExecute(WordOfTheDay wordObj) {
-            updateUI(wordObj);
+        protected void onPostExecute(WordOfTheDay wordOfTheDay) {
+            updateUI(wordOfTheDay);
         }
 
     }
