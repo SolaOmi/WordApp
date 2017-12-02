@@ -17,6 +17,15 @@
         android:queryHint="@string/search_words" />
 
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/word_of_the_day"
+        android:background="@color/lightGray"
+        android:layout_margin="8dp"
+        android:gravity="center"
+        style="@android:style/TextAppearance.DeviceDefault.Large"/>
+
+    <TextView
         android:id="@+id/example"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
