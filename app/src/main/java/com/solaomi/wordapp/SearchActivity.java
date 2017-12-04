@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 // Library for Wordnik API (http://developer.wordnik.com/).
@@ -25,7 +26,7 @@ public class SearchActivity extends AppCompatActivity {
         task.execute();
 
         // Find View that shows Word-of-the-Day.
-        TextView wordOfTheDayTextView = findViewById(R.id.word_of_the_day);
+        final TextView wordOfTheDayTextView = findViewById(R.id.word_of_the_day);
 
         // Set a click listener on Word-of-the-Day TextView.
         wordOfTheDayTextView.setOnClickListener(new View.OnClickListener() {
@@ -34,10 +35,38 @@ public class SearchActivity extends AppCompatActivity {
                 // Create a new intent to open the {@link WordActivity}
                 Intent wordIntent = new Intent(SearchActivity.this, WordActivity.class);
 
+                // Pass word to the new Activity.
+                wordIntent.putExtra("word", wordOfTheDayTextView.getText().toString());
+
                 // Start the new activity
                 startActivity(wordIntent);
             }
         });
+
+        // Find SearchView for word lookup.
+        SearchView wordLookupSearchView = findViewById(R.id.word_search_view);
+
+        // Set a query text listener on the word SearchView.
+        wordLookupSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                // Create a new intent to open the {@link WordActivity}
+                Intent wordIntent = new Intent(SearchActivity.this, WordActivity.class);
+
+                // Pass word to the new Activity.
+                wordIntent.putExtra("word", s);
+
+                // Start the new activity
+                startActivity(wordIntent);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+
     }
 
     /**

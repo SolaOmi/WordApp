@@ -8,6 +8,7 @@
     tools:context="com.solaomi.wordapp.SearchActivity">
 
     <SearchView
+        android:id="@+id/word_search_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
