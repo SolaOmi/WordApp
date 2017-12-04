@@ -1,8 +1,10 @@
 package com.solaomi.wordapp;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TextView;
 
 // Library for Wordnik API (http://developer.wordnik.com/).
@@ -21,6 +23,21 @@ public class SearchActivity extends AppCompatActivity {
         // Kick off an {@link AsyncTask} to perform network request.
         WordOfTheDayAsyncTask task = new WordOfTheDayAsyncTask();
         task.execute();
+
+        // Find View that shows Word-of-the-Day.
+        TextView wordOfTheDayTextView = findViewById(R.id.word_of_the_day);
+
+        // Set a click listener on Word-of-the-Day TextView.
+        wordOfTheDayTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Create a new intent to open the {@link WordActivity}
+                Intent wordIntent = new Intent(SearchActivity.this, WordActivity.class);
+
+                // Start the new activity
+                startActivity(wordIntent);
+            }
+        });
     }
 
     /**
