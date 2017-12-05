@@ -32,14 +32,8 @@ public class SearchActivity extends AppCompatActivity {
         wordOfTheDayTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Create a new intent to open the {@link WordActivity}
-                Intent wordIntent = new Intent(SearchActivity.this, WordActivity.class);
-
-                // Pass word to the new Activity.
-                wordIntent.putExtra("word", wordOfTheDayTextView.getText().toString());
-
-                // Start the new activity
-                startActivity(wordIntent);
+                String word = wordOfTheDayTextView.getText().toString();
+                startWordActivity(word);
             }
         });
 
@@ -49,15 +43,8 @@ public class SearchActivity extends AppCompatActivity {
         // Set a query text listener on the word SearchView.
         wordLookupSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String s) {
-                // Create a new intent to open the {@link WordActivity}
-                Intent wordIntent = new Intent(SearchActivity.this, WordActivity.class);
-
-                // Pass word to the new Activity.
-                wordIntent.putExtra("word", s);
-
-                // Start the new activity
-                startActivity(wordIntent);
+            public boolean onQueryTextSubmit(String word) {
+                startWordActivity(word);
                 return false;
             }
 
@@ -82,6 +69,21 @@ public class SearchActivity extends AppCompatActivity {
         // Find reference to the {@link TextView} in the layout and set text to Word-of-the-Day.
         TextView exampleTextView = findViewById(R.id.word_of_the_day);
         exampleTextView.setText(word);
+    }
+
+    /**
+     * Helper class to start the Word Activity.
+     * @param word is a String of the word to be looked up in the Word Activity.
+     */
+    private void startWordActivity(String word) {
+        // Create a new intent to open the {@link WordActivity}
+        Intent wordIntent = new Intent(SearchActivity.this, WordActivity.class);
+
+        // Pass word to the new Activity.
+        wordIntent.putExtra("word", word);
+
+        // Start the new activity
+        startActivity(wordIntent);
     }
 
     /**
