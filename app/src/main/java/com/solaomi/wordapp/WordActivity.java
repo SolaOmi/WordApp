@@ -1,5 +1,6 @@
 package com.solaomi.wordapp;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -16,14 +17,14 @@ public class WordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_word);
 
         // Get word passed through from Search Activity.
-//        Bundle bundle = getIntent().getExtras();
-//        if (bundle != null) {
-//            String word = bundle.getString("word");
-//
-//            //Find example TextView
-//            TextView exampleTextView = findViewById(R.id.example_text);
-//            exampleTextView.setText(word);
-//        }
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            String word = bundle.getString("word");
+
+            //Find example TextView
+            TextView exampleTextView = findViewById(R.id.word_text);
+            exampleTextView.setText(word);
+        }
 
         // Find the view pager that will allow the user to swipe between fragments.
         ViewPager viewPager = findViewById(R.id.viewpager);
