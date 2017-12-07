@@ -21,6 +21,8 @@ public class SearchActivity extends AppCompatActivity
     private static final int WORD_OF_THE_DAY_LOADER_ID = 1;
 
     private String mWordOfTheDay;
+    private String mWordOfTheDayDefinition;
+    private String mWordOfTheDayExample;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,11 +75,27 @@ public class SearchActivity extends AppCompatActivity
     private void updateUI(WordOfTheDay wordOfTheDay) {
 
         // Word from wordOfTheDay object.
-        mWordOfTheDay = wordOfTheDay.getWord();
+        mWordOfTheDay= wordOfTheDay.getWord();
+
+        // Definition from wordOfTheDay object.
+        mWordOfTheDayDefinition = wordOfTheDay.getDefinitions().get(0).getText();
+
+        // Example from wordOfTheDay object.
+        mWordOfTheDayExample = wordOfTheDay.getExamples().get(0).getText();
 
         // Find reference to the {@link TextView} in the layout and set text to Word-of-the-Day.
-        TextView exampleTextView = findViewById(R.id.word_of_the_day);
-        exampleTextView.setText(mWordOfTheDay);
+        TextView wordTextView = findViewById(R.id.word_of_the_day);
+        wordTextView.setText(mWordOfTheDay);
+
+        // Find reference to the {@link TextView} in the layout and set text to Word-of-the-Day's
+        // first definition.
+        TextView definitionTextView = findViewById(R.id.word_of_the_day_definition);
+        definitionTextView.setText(mWordOfTheDayDefinition);
+
+        // Find reference to the {@link TextView} in the layout and set text to Word-of-the-Day's
+        // first example.
+        TextView exampleTextView = findViewById(R.id.word_of_the_day_example);
+        exampleTextView.setText(mWordOfTheDayExample);
     }
 
     /**
@@ -109,5 +127,7 @@ public class SearchActivity extends AppCompatActivity
     public void onLoaderReset(Loader<WordOfTheDay> loader) {
         // Loader reset, so we can clear out existing data.
         mWordOfTheDay = "";
+        mWordOfTheDayDefinition = "";
+        mWordOfTheDayExample = "";
     }
 }

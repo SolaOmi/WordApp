@@ -6,6 +6,7 @@
     android:orientation="vertical" >
 
     <android.support.design.widget.TabLayout
+        android:background="@android:color/black"
         android:id="@+id/tabs"
         style="@style/AttributeTab"
         android:layout_width="match_parent"
@@ -15,7 +16,7 @@
         android:id="@+id/word_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/lightGray"
+        android:background="@android:color/holo_blue_dark"
         android:layout_margin="8dp"
         android:gravity="center"
         android:text="Hello World!" />

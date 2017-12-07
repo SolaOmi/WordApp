@@ -36,4 +36,24 @@
         style="@android:style/TextAppearance.DeviceDefault.Medium"
         tools:text="Hello World!" />
 
+    <TextView
+        android:id="@+id/word_of_the_day_definition"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/lightGray"
+        android:layout_margin="8dp"
+        android:gravity="center"
+        style="@android:style/TextAppearance.DeviceDefault.Medium"
+        tools:text="Hello World!" />
+
+    <TextView
+        android:id="@+id/word_of_the_day_example"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/lightGray"
+        android:layout_margin="8dp"
+        android:gravity="center"
+        style="@android:style/TextAppearance.DeviceDefault.Medium"
+        tools:text="Hello World!" />
+
 </LinearLayout>
