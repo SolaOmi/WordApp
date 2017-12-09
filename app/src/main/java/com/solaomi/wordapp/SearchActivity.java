@@ -14,12 +14,9 @@ import net.jeremybrooks.knicker.dto.WordOfTheDay;
 public class SearchActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<WordOfTheDay> {
 
-     /** Tag for log messages */
-    private static final String LOG_TAG = SearchActivity.class.getName();
+//    private static final String LOG_TAG = SearchActivity.class.getName();
 
-    /** Constant value for the Word of the Day loader ID. */
     private static final int WORD_OF_THE_DAY_LOADER_ID = 1;
-
     private String mWordOfTheDay;
     private String mWordOfTheDayDefinition;
     private String mWordOfTheDayExample;
@@ -69,13 +66,14 @@ public class SearchActivity extends AppCompatActivity
 
     /**
      * Update the screen to display the Wordnki API's Word-of-the-Day.
+     *
      * @param wordOfTheDay is a WordOfTheDay object containing the Word-of-the-Day, including
      *                     definitions and example sentences.
      */
     private void updateUI(WordOfTheDay wordOfTheDay) {
 
         // Word from wordOfTheDay object.
-        mWordOfTheDay= wordOfTheDay.getWord();
+        mWordOfTheDay = wordOfTheDay.getWord();
 
         // Definition from wordOfTheDay object.
         mWordOfTheDayDefinition = wordOfTheDay.getDefinitions().get(0).getText();
@@ -100,6 +98,7 @@ public class SearchActivity extends AppCompatActivity
 
     /**
      * Helper class to start the Word Activity.
+     *
      * @param word is a String of the word to be looked up in the Word Activity.
      */
     private void startWordActivity(String word) {

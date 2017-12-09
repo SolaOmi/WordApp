@@ -3,8 +3,10 @@
     <string name="search_words">Search Words</string>
     <string name="word_of_the_day">Word of the Day</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Fragment filler text-->
+    <string name="definitions_fragment">A</string>
+    <string name="antonym_synonym_fragment">B</string>
+    <string name="examples_fragment">C</string>
 
     <!-- WordActivity Tab titles -->
     <string name="attribute_definitions">Definitions</string>

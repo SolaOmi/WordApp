@@ -13,19 +13,16 @@ import android.widget.TextView;
  */
 public class AntonymSynonymFragment extends Fragment {
 
-    /** Tag for log messages */
-    private static final String LOG_TAG = AntonymSynonymFragment.class.getName();
-
+//    private static final String LOG_TAG = AntonymSynonymFragment.class.getName();
     public AntonymSynonymFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         TextView textView = new TextView(getActivity());
-        textView.setText("Antonym/Synonym");
+        textView.setText(R.string.antonym_synonym_fragment);
         return textView;
     }
 

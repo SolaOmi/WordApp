@@ -5,25 +5,23 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-/** {@link WordAttributesAdapter} is a {@link FragmentPagerAdapter} that can provide the layout for
+/**
+ * {@link WordAttributesAdapter} is a {@link FragmentPagerAdapter} that can provide the layout for
  * each attribute (definitions, examples, antonym/synonyms) of the Word object to be looked up.
  */
 public class WordAttributesAdapter extends FragmentPagerAdapter {
 
-    /** Tag for log messages */
-    private static final String LOG_TAG = WordAttributesAdapter.class.getName();
+//    private static final String LOG_TAG = WordAttributesAdapter.class.getName();
 
-    /** Context of the app */
     private Context mContext;
-
-    final int PAGE_COUNT = 3;
+    private static final int PAGE_COUNT = 3;
 
     /**
      * Create a new {@link WordAttributesAdapter} object.
      *
      * @param context is the context of the app.
-     * @param fm is the fragment manager that will keep each fragment's state in the adapter
-     *           across swipes.
+     * @param fm      is the fragment manager that will keep each fragment's state in the adapter
+     *                across swipes.
      */
     public WordAttributesAdapter(Context context, FragmentManager fm) {
         super(fm);
@@ -48,8 +46,11 @@ public class WordAttributesAdapter extends FragmentPagerAdapter {
      * Return the total number of pages.
      */
     @Override
-    public int getCount() { return PAGE_COUNT; }
+    public int getCount() {
+        return PAGE_COUNT;
+    }
 
+    // Generate tab titles based on item position
     @Override
     public CharSequence getPageTitle(int position) {
         if (position == 0) {

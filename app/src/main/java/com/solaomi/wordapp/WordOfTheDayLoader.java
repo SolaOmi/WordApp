@@ -8,13 +8,12 @@ import net.jeremybrooks.knicker.KnickerException;
 import net.jeremybrooks.knicker.WordsApi;
 import net.jeremybrooks.knicker.dto.WordOfTheDay;
 
-/** Loads Word-of-the-Day by using an AsyncTask to perform the request */
-
+/**
+ * Loads Word-of-the-Day by using an AsyncTask to perform the request
+ */
 public class WordOfTheDayLoader extends AsyncTaskLoader<WordOfTheDay> {
 
-    /** Tag for log messages */
-    private static final String LOG_TAG = WordOfTheDayLoader.class.getName();
-
+//    private static final String LOG_TAG = WordOfTheDayLoader.class.getName();
     public WordOfTheDayLoader(Context context) {
         super(context);
 

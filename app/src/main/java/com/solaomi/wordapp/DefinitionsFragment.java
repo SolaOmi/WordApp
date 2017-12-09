@@ -13,19 +13,16 @@ import android.widget.TextView;
  */
 public class DefinitionsFragment extends Fragment {
 
-    /** Tag for log messages */
-    private static final String LOG_TAG = DefinitionsFragment.class.getName();
-
+//    private static final String LOG_TAG = DefinitionsFragment.class.getName();
     public DefinitionsFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         TextView textView = new TextView(getActivity());
-        textView.setText("Definitions");
+        textView.setText(R.string.definitions_fragment);
         return textView;
     }
 
