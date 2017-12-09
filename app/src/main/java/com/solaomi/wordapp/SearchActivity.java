@@ -1,6 +1,7 @@
 package com.solaomi.wordapp;
 
 import android.app.LoaderManager;
+import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
@@ -11,8 +12,7 @@ import android.widget.TextView;
 
 import net.jeremybrooks.knicker.dto.WordOfTheDay;
 
-public class SearchActivity extends AppCompatActivity
-        implements LoaderManager.LoaderCallbacks<WordOfTheDay> {
+public class SearchActivity extends AppCompatActivity {
 
 //    private static final String LOG_TAG = SearchActivity.class.getName();
 
@@ -55,13 +55,34 @@ public class SearchActivity extends AppCompatActivity
             }
         });
 
+        LoaderCallbacks<WordOfTheDay> wordOfTheDayLoaderListener =
+                new LoaderCallbacks<WordOfTheDay>() {
+                    @Override
+                    public Loader<WordOfTheDay> onCreateLoader(int i, Bundle bundle) {
+                        return new WordOfTheDayLoader(SearchActivity.this);
+                    }
+
+                    @Override
+                    public void onLoadFinished(Loader<WordOfTheDay> loader, WordOfTheDay wordOfTheDay) {
+                        updateUI(wordOfTheDay);
+                    }
+
+                    @Override
+                    public void onLoaderReset(Loader<WordOfTheDay> loader) {
+                        // Loader reset, so we can clear out existing data.
+                        mWordOfTheDay = "";
+                        mWordOfTheDayDefinition = "";
+                        mWordOfTheDayExample = "";
+                    }
+                };
+
+
         // A reference to the LoaderManager, in order to interact with loaders.
         LoaderManager loaderManager = getLoaderManager();
 
         // Initialize the loader. Pass in the int ID constant defined above and pass in null for
-        // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
-        // because this activity implements the LoaderCallbacks interface).
-        loaderManager.initLoader(WORD_OF_THE_DAY_LOADER_ID, null, this);
+        // the bundle. Pass in the wordOfTheDayLoaderListener for the LoaderCallbacks parameter.
+        loaderManager.initLoader(WORD_OF_THE_DAY_LOADER_ID, null, wordOfTheDayLoaderListener);
     }
 
     /**
@@ -110,23 +131,5 @@ public class SearchActivity extends AppCompatActivity
 
         // Start the new activity
         startActivity(wordIntent);
-    }
-
-    @Override
-    public Loader<WordOfTheDay> onCreateLoader(int i, Bundle bundle) {
-        return new WordOfTheDayLoader(this);
-    }
-
-    @Override
-    public void onLoadFinished(Loader<WordOfTheDay> loader, WordOfTheDay wordOfTheDay) {
-        updateUI(wordOfTheDay);
-    }
-
-    @Override
-    public void onLoaderReset(Loader<WordOfTheDay> loader) {
-        // Loader reset, so we can clear out existing data.
-        mWordOfTheDay = "";
-        mWordOfTheDayDefinition = "";
-        mWordOfTheDayExample = "";
     }
 }
