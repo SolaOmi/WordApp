@@ -11,6 +11,9 @@ import android.widget.TextView;
 
 public class WordActivity extends AppCompatActivity {
 
+    /** Tag for log messages */
+    private static final String LOG_TAG = WordActivity.class.getName();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -10,6 +10,9 @@ import android.support.v4.app.FragmentPagerAdapter;
  */
 public class WordAttributesAdapter extends FragmentPagerAdapter {
 
+    /** Tag for log messages */
+    private static final String LOG_TAG = WordAttributesAdapter.class.getName();
+
     /** Context of the app */
     private Context mContext;
 

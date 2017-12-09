@@ -13,6 +13,8 @@ import android.widget.TextView;
  */
 public class DefinitionsFragment extends Fragment {
 
+    /** Tag for log messages */
+    private static final String LOG_TAG = DefinitionsFragment.class.getName();
 
     public DefinitionsFragment() {
         // Required empty public constructor

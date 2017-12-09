@@ -13,6 +13,8 @@ import android.widget.TextView;
  */
 public class AntonymSynonymFragment extends Fragment {
 
+    /** Tag for log messages */
+    private static final String LOG_TAG = AntonymSynonymFragment.class.getName();
 
     public AntonymSynonymFragment() {
         // Required empty public constructor
