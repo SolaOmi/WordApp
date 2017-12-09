@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 public class WordActivity extends AppCompatActivity {
 
-//    private static final String LOG_TAG = WordActivity.class.getName();
+    //    private static final String LOG_TAG = WordActivity.class.getName();
+    private String mWord;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,19 +21,20 @@ public class WordActivity extends AppCompatActivity {
         // Get word passed through from Search Activity.
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            String word = bundle.getString("word");
+            mWord = bundle.getString("word");
 
             //Find example TextView
             TextView exampleTextView = findViewById(R.id.word_text);
-            exampleTextView.setText(word);
+            exampleTextView.setText(mWord);
         }
 
         // Find the view pager that will allow the user to swipe between fragments.
         ViewPager viewPager = findViewById(R.id.viewpager);
 
-        // Create an adapter that knows which fragment should be shown on each page.
+        // Create an adapter that knows which fragment should be shown on each page,
+        // and passes on word to those fragments..
         WordAttributesAdapter adapter = new WordAttributesAdapter(this,
-                getSupportFragmentManager());
+                getSupportFragmentManager(), mWord);
 
         // Set the adapter onto the view pager.
         viewPager.setAdapter(adapter);

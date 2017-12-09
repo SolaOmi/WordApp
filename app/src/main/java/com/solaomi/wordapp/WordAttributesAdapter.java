@@ -1,6 +1,7 @@
 package com.solaomi.wordapp;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -11,8 +12,7 @@ import android.support.v4.app.FragmentPagerAdapter;
  */
 public class WordAttributesAdapter extends FragmentPagerAdapter {
 
-//    private static final String LOG_TAG = WordAttributesAdapter.class.getName();
-
+    //    private static final String LOG_TAG = WordAttributesAdapter.class.getName();
     private Context mContext;
     private static final int PAGE_COUNT = 3;
 
@@ -23,9 +23,11 @@ public class WordAttributesAdapter extends FragmentPagerAdapter {
      * @param fm      is the fragment manager that will keep each fragment's state in the adapter
      *                across swipes.
      */
-    public WordAttributesAdapter(Context context, FragmentManager fm) {
+    public WordAttributesAdapter(Context context, FragmentManager fm, String word) {
         super(fm);
         mContext = context;
+        Bundle mBundle = new Bundle();
+        mBundle.putString("word", word);
     }
 
     /**
