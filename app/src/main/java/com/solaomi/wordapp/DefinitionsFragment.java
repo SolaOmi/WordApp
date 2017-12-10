@@ -68,7 +68,7 @@ public class DefinitionsFragment extends Fragment {
         LoaderManager loaderManager = getLoaderManager();
 
         // Initialize the loader. Pass in the int ID constant defined above and pass in null for
-        // the bundle. Pass in the wordOfTheDayLoaderListener for the LoaderCallbacks parameter.
+        // the bundle. Pass in the definitionsLoaderListener for the LoaderCallbacks parameter.
         loaderManager.initLoader(DEFINITIONS_LOADER_ID, null, definitionsLoaderListener);
 
         return textView;

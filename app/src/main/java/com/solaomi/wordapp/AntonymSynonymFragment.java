@@ -99,7 +99,7 @@ public class AntonymSynonymFragment extends Fragment {
         LoaderManager loaderManager = getLoaderManager();
 
         // Initialize the loader. Pass in the int ID constant defined above and pass in null for
-        // the bundle. Pass in the wordOfTheDayLoaderListener for the LoaderCallbacks parameter.
+        // the bundle. Pass in the antonymSynonymLoaderListener for the LoaderCallbacks parameter.
         loaderManager.initLoader(ANTONYM_SYNONYM_LOADER_ID, null, antonymSynonymLoaderListener);
 
         return linearLayout;
