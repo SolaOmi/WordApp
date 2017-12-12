@@ -85,14 +85,16 @@ public class AntonymSynonymFragment extends Fragment {
                         antonymTextView.setText(antonymText);
                         synonymTextView.setText(synonymText);
 
+                        if (antonymTextView.getParent() != null && synonymTextView.getParent() != null) {
+                            ((ViewGroup) antonymTextView.getParent()).removeView(antonymTextView);
+                            ((ViewGroup) synonymTextView.getParent()).removeView(synonymTextView);
+                        }
                         linearLayout.addView(antonymTextView);
                         linearLayout.addView(synonymTextView);
                     }
 
                     @Override
-                    public void onLoaderReset(Loader<List<Related>> loader) {
-                        mWord = "";
-                    }
+                    public void onLoaderReset(Loader<List<Related>> loader) { mWord = "";}
                 };
 
         // A reference to the LoaderManager, in order to interact with loaders.
