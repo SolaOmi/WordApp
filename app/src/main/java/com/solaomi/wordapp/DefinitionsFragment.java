@@ -9,10 +9,12 @@ import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import net.jeremybrooks.knicker.dto.Definition;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +25,7 @@ public class DefinitionsFragment extends Fragment {
     //    private static final String LOG_TAG = DefinitionsFragment.class.getName();
     private static final int DEFINITIONS_LOADER_ID = 1;
     private String mWord;
+    private ArrayAdapter<String> mAdapter;
 
     public DefinitionsFragment() {
         // Required empty public constructor
@@ -32,12 +35,19 @@ public class DefinitionsFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        final View rootView = inflater.inflate(R.layout.word_list, container, false);
+
         Bundle bundle = getActivity().getIntent().getExtras();
         if (bundle != null) {
             mWord = bundle.getString("word");
         }
 
-        final TextView textView = new TextView(getActivity());
+        // Create a new adapter that takes an empty list of Strings as input.
+        mAdapter = new ArrayAdapter<>(
+                getActivity(),
+                android.R.layout.simple_list_item_1,
+                new ArrayList<String>()
+        );
 
         // Implement a loadercallback for the Definitions loader.
         LoaderCallbacks<List<Definition>> definitionsLoaderListener =
@@ -49,18 +59,27 @@ public class DefinitionsFragment extends Fragment {
 
                     @Override
                     public void onLoadFinished(Loader<List<Definition>> loader, List<Definition> data) {
-                        String text;
-                        if (data.size() == 0) {
-                            text = getString(R.string.definitions_fragment);
-                        } else {
-                            text = data.get(0).getText();
+                        // Create a list of definitions.
+                        ArrayList<String> examples = new ArrayList<>();
+
+                        for (Definition d : data) {
+                            examples.add(d.getText());
                         }
-                        textView.setText(text);
+
+                        // Clear the adapter of previous definitions data
+                        mAdapter.clear();
+
+                        mAdapter.addAll(examples);
+
+                        ListView listView = rootView.findViewById(R.id.list);
+
+                        listView.setAdapter(mAdapter);
                     }
 
                     @Override
                     public void onLoaderReset(Loader<List<Definition>> loader) {
-                        mWord = "";
+                        // Loader reset, so we can clear out our existing data.
+                        mAdapter.clear();
                     }
                 };
 
@@ -71,6 +90,6 @@ public class DefinitionsFragment extends Fragment {
         // the bundle. Pass in the definitionsLoaderListener for the LoaderCallbacks parameter.
         loaderManager.initLoader(DEFINITIONS_LOADER_ID, null, definitionsLoaderListener);
 
-        return textView;
+        return rootView;
     }
 }
