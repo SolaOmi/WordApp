@@ -38,7 +38,7 @@ public class WordAttributesAdapter extends FragmentPagerAdapter {
         if (position == 0) {
             return new DefinitionsFragment();
         } else if (position == 1) {
-            return new AntonymSynonymFragment();
+            return new RelatedFragment();
         } else {
             return new ExamplesFragment();
         }
@@ -58,7 +58,7 @@ public class WordAttributesAdapter extends FragmentPagerAdapter {
         if (position == 0) {
             return mContext.getString(R.string.attribute_definitions);
         } else if (position == 1) {
-            return mContext.getString(R.string.attribute_antonym_synonym);
+            return mContext.getString(R.string.attribute_related);
         } else {
             return mContext.getString(R.string.attribute_examples);
         }

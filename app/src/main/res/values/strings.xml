@@ -5,11 +5,11 @@
 
     <!-- Fragment filler text-->
     <string name="definitions_fragment">A</string>
-    <string name="antonym_synonym_fragment">B</string>
+    <string name="related_fragment">B</string>
     <string name="examples_fragment">C</string>
 
     <!-- WordActivity Tab titles -->
     <string name="attribute_definitions">Definitions</string>
-    <string name="attribute_antonym_synonym">Antonym/Synonym</string>
+    <string name="attribute_related">Antonym/Synonym</string>
     <string name="attribute_examples">Examples</string>
 </resources>

@@ -13,12 +13,12 @@ import java.util.List;
 /**
  * Loads Definitions of looked up word by using an AsyncTask to perform the request
  */
-public class AntonymSynonymLoader extends AsyncTaskLoader<List<Related>> {
+public class RelatedLoader extends AsyncTaskLoader<List<Related>> {
 
-    //    private static final String LOG_TAG = AntonymSynonymLoader.class.getName();
+    //    private static final String LOG_TAG = RelatedLoader.class.getName();
     private String mWord;
 
-    public AntonymSynonymLoader(Context context, String word) {
+    public RelatedLoader(Context context, String word) {
         super(context);
         mWord = word;
 

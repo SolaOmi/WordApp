@@ -19,13 +19,13 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AntonymSynonymFragment extends Fragment {
+public class RelatedFragment extends Fragment {
 
-//    private static final String LOG_TAG = AntonymSynonymFragment.class.getName();
+//    private static final String LOG_TAG = RelatedFragment.class.getName();
     private static final int ANTONYM_SYNONYM_LOADER_ID = 1;
     private String mWord;
 
-    public AntonymSynonymFragment() {
+    public RelatedFragment() {
         // Required empty public constructor
     }
 
@@ -50,7 +50,7 @@ public class AntonymSynonymFragment extends Fragment {
                 new LoaderCallbacks<List<Related>>() {
                     @Override
                     public Loader<List<Related>> onCreateLoader(int id, Bundle args) {
-                        return new AntonymSynonymLoader(getContext(), mWord);
+                        return new RelatedLoader(getContext(), mWord);
                     }
 
                     @Override
@@ -72,13 +72,13 @@ public class AntonymSynonymFragment extends Fragment {
 
                         // Check for null values and make sure there are words in the lists.
                         if ((antonyms != null ? antonyms.size() : 0) == 0) {
-                            antonymText.append(getString(R.string.antonym_synonym_fragment));
+                            antonymText.append(getString(R.string.related_fragment));
                         } else {
                             for (String s : antonyms) antonymText.append(s).append(" ");
                         }
 
                         if ((synonyms != null ? synonyms.size() : 0) == 0) {
-                            synonymText.append(getString(R.string.antonym_synonym_fragment));
+                            synonymText.append(getString(R.string.related_fragment));
                         } else {
                             for (String s : synonyms) { synonymText.append(s).append(" "); }
                         }
