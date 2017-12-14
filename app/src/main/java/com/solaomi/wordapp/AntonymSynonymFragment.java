@@ -55,7 +55,8 @@ public class AntonymSynonymFragment extends Fragment {
 
                     @Override
                     public void onLoadFinished(Loader<List<Related>> loader, List<Related> data) {
-                        String antonymText, synonymText;
+                        StringBuilder antonymText = new StringBuilder();
+                        StringBuilder synonymText = new StringBuilder();
                         List<String> antonyms = null;
                         List<String> synonyms = null;
 
@@ -71,15 +72,15 @@ public class AntonymSynonymFragment extends Fragment {
 
                         // Check for null values and make sure there are words in the lists.
                         if ((antonyms != null ? antonyms.size() : 0) == 0) {
-                            antonymText = getString(R.string.antonym_synonym_fragment);
+                            antonymText.append(getString(R.string.antonym_synonym_fragment));
                         } else {
-                            antonymText = antonyms.get(0);
+                            for (String s : antonyms) antonymText.append(s).append(" ");
                         }
 
                         if ((synonyms != null ? synonyms.size() : 0) == 0) {
-                            synonymText = getString(R.string.antonym_synonym_fragment);
+                            synonymText.append(getString(R.string.antonym_synonym_fragment));
                         } else {
-                            synonymText = synonyms.get(0);
+                            for (String s : synonyms) { synonymText.append(s).append(" "); }
                         }
 
                         antonymTextView.setText(antonymText);
