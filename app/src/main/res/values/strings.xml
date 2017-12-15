@@ -12,4 +12,11 @@
     <string name="attribute_definitions">Definitions</string>
     <string name="attribute_related">Antonym/Synonym</string>
     <string name="attribute_examples">Examples</string>
+
+    <!-- definitions_list_item filler text -->
+    <string name="sample_part_of_speech">Verb</string>
+    <string name="sample_definition">
+        Move at a speed faster than a walk, never having both
+        or all the feet on the ground at the same time.
+    </string>
 </resources>
