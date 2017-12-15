@@ -60,16 +60,16 @@ public class DefinitionsFragment extends Fragment {
                     @Override
                     public void onLoadFinished(Loader<List<Definition>> loader, List<Definition> data) {
                         // Create a list of definitions.
-                        ArrayList<String> examples = new ArrayList<>();
+                        ArrayList<String> definitions = new ArrayList<>();
 
                         for (Definition d : data) {
-                            examples.add(d.getText());
+                            definitions.add(d.getPartOfSpeech() + " - " + d.getText());
                         }
 
                         // Clear the adapter of previous definitions data
                         mAdapter.clear();
 
-                        mAdapter.addAll(examples);
+                        mAdapter.addAll(definitions);
 
                         ListView listView = rootView.findViewById(R.id.list);
 
