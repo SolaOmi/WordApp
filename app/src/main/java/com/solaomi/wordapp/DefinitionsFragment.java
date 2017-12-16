@@ -61,7 +61,9 @@ public class DefinitionsFragment extends Fragment {
                     @Override
                     public void onLoadFinished(Loader<List<Definition>> loader, List<Definition> data) {
                         // Clear the adapter of previous definitions data
-                        mAdapter.clear();
+                        if (mAdapter != null) {
+                            mAdapter.clear();
+                        }
 
                         // Instantiate a {@link DefinitonsAdapter}, whose data source is a list of
                         // {@link Definition}s. The adapter knows how to create list items for each
