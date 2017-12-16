@@ -9,13 +9,12 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import net.jeremybrooks.knicker.dto.Definition;
-import net.jeremybrooks.knicker.dto.Related;
 
 import java.util.List;
 
 /**
  * {@link AttributesAdapter} is an {@link ArrayAdapter} that can provide the layout for each list
- * item based on a data source, which is a list of {@link Definition} or {@link Related} objects.
+ * item based on a data source, which is a list of {@link Definition} or {@link RelatedWord} objects.
  */
 public class AttributesAdapter<Type> extends ArrayAdapter<Type> {
 //    private static final String LOG_TAG = AttributesAdapter.class.getName();
@@ -24,7 +23,7 @@ public class AttributesAdapter<Type> extends ArrayAdapter<Type> {
      * Create a new {@link AttributesAdapter} object.
      *
      * @param context is the current context (i.e. Activity) that the adapter is being created in.
-     * @param list is the list of {@link Object}s to be displayed.
+     * @param list is the list of objects to be displayed.
      */
     public AttributesAdapter(Context context, List<Type> list) {
         super(context, 0, list);
@@ -43,17 +42,25 @@ public class AttributesAdapter<Type> extends ArrayAdapter<Type> {
         // Get the object located at this position in the list.
         Type currentItem = getItem(position);
 
+        // Find the TextViews in the list_item xml layout with the ID word_attribute_type
+        // and word_attribute_content.
+        TextView typeTextView = listItemView.findViewById(R.id.word_attribute_type);
+        TextView contentTextView = listItemView.findViewById(R.id.word_attribute_content);
+
         // Check if the object is of type Definition
         if ( currentItem instanceof Definition) {
-            // Find the TextViews in the list_itemwith the ID part_of_speech
-            // and definition.
-            TextView partOfSpeechTextView = listItemView.findViewById(R.id.word_attribute_type);
-            TextView definitionTextView = listItemView.findViewById(R.id.word_attribute_content);
-
-            // Get part of speech and definition from the currentDefinition object and set this text on
+            // Get part of speech and definition from the currentItem object and set this text on
             // their respective TextView's.
-            partOfSpeechTextView.setText(((Definition) currentItem).getPartOfSpeech());
-            definitionTextView.setText(((Definition) currentItem).getText());
+            typeTextView.setText(((Definition) currentItem).getPartOfSpeech());
+            contentTextView.setText(((Definition) currentItem).getText());
+        }
+
+        // Check if the object is of type RelatedWord
+        if ( currentItem instanceof RelatedWord) {
+            // Get the type and word from the currentItem object and set this text on
+            // their respective TextView's.
+            typeTextView.setText(((RelatedWord) currentItem).getRelatedType());
+            contentTextView.setText(((RelatedWord) currentItem).getRelatedWord());
         }
 
         // Return the whole definitions list item layout (containing 2 TextViews) so that it can be

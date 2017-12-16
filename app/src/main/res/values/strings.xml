@@ -19,4 +19,8 @@
         Move at a speed faster than a walk, never having both
         or all the feet on the ground at the same time.
     </string>
+
+    <!-- Relationship Types-->
+    <string name="antonym">antonym</string>
+    <string name="synonym">synonym</string>
 </resources>
