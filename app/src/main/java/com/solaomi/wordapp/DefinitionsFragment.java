@@ -9,12 +9,10 @@ import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import net.jeremybrooks.knicker.dto.Definition;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,14 +23,13 @@ public class DefinitionsFragment extends Fragment {
     //    private static final String LOG_TAG = DefinitionsFragment.class.getName();
     private static final int DEFINITIONS_LOADER_ID = 1;
     private String mWord;
-    private DefinitionsAdapter mAdapter;
+    private AttributesAdapter mAdapter;
 
     public DefinitionsFragment() {
         // Required empty public constructor
     }
 
     @Override
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.word_list, container, false);
@@ -41,14 +38,6 @@ public class DefinitionsFragment extends Fragment {
         if (bundle != null) {
             mWord = bundle.getString("word");
         }
-
-//        // Create a new adapter that takes an empty list of Strings as input.
-//        mAdapter = new DefinitionsAdapter(
-//                getActivity(),
-//                android.R.layout.simple_list_item_1,
-//                new ArrayList<String>()
-//        );
-//        mAdapter = new DefinitionsAdapter(getActivity(), null);
 
         // Implement a loadercallback for the Definitions loader.
         LoaderCallbacks<List<Definition>> definitionsLoaderListener =
@@ -65,10 +54,10 @@ public class DefinitionsFragment extends Fragment {
                             mAdapter.clear();
                         }
 
-                        // Instantiate a {@link DefinitonsAdapter}, whose data source is a list of
+                        // Instantiate a {@link AttributesAdapter}, whose data source is a list of
                         // {@link Definition}s. The adapter knows how to create list items for each
                         // item in the list.
-                        mAdapter = new DefinitionsAdapter(getActivity(), data);
+                        mAdapter = new AttributesAdapter<>(getActivity(), data);
 
                         ListView listView = rootView.findViewById(R.id.list);
                         listView.setAdapter(mAdapter);

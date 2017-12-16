@@ -9,7 +9,7 @@
     android:orientation="horizontal">
 
     <TextView
-        android:id="@+id/part_of_speech"
+        android:id="@+id/word_attribute_type"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -18,7 +18,7 @@
         tools:text="@string/sample_part_of_speech"/>
 
     <TextView
-        android:id="@+id/definition"
+        android:id="@+id/word_attribute_content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="4"
