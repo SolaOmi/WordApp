@@ -50,16 +50,18 @@ public class RelatedFragment extends Fragment {
 
                     @Override
                     public void onLoadFinished(Loader<List<Related>> loader, List<Related> data) {
+                        String[] types = new String[] {getString(R.string.antonym),
+                                getString(R.string.synonym)};
                         List<String> antonyms = null;
                         List<String> synonyms = null;
                         ArrayList<RelatedWord> words = new ArrayList<>();
 
                         // Get the list of Antonyms and Synonyms from the List of Related Objects.
                         for(Related r : data) {
-                            if (r.getRelType().equals("antonym")) {
+                            if (r.getRelType().equals(types[0])) {
                                 antonyms = r.getWords();
                             }
-                            if (r.getRelType().equals("synonym")) {
+                            if (r.getRelType().equals(types[1])) {
                                 synonyms = r.getWords();
                             }
                         }
@@ -68,13 +70,13 @@ public class RelatedFragment extends Fragment {
                         // RelatedWord objects.
                         if (antonyms != null) {
                             for(String antonym : antonyms) {
-                                words.add(new RelatedWord("antonym", antonym));
+                                words.add(new RelatedWord(types[0], antonym));
                             }
                         }
 
                         if (synonyms != null) {
                             for (String synonym : synonyms) {
-                                words.add(new RelatedWord("synonym", synonym));
+                                words.add(new RelatedWord(types[1], synonym));
                             }
                         }
 
