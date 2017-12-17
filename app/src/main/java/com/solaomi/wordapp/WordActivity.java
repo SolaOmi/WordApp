@@ -33,7 +33,7 @@ public class WordActivity extends AppCompatActivity {
 
         // Create an adapter that knows which fragment should be shown on each page,
         // and passes on word to those fragments..
-        WordAttributesAdapter adapter = new WordAttributesAdapter(this,
+        AttributesFragmentAdapter adapter = new AttributesFragmentAdapter(this,
                 getSupportFragmentManager(), mWord);
 
         // Set the adapter onto the view pager.

@@ -7,23 +7,23 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 /**
- * {@link WordAttributesAdapter} is a {@link FragmentPagerAdapter} that can provide the layout for
+ * {@link AttributesFragmentAdapter} is a {@link FragmentPagerAdapter} that can provide the layout for
  * each attribute (definitions, examples, antonym/synonyms) of the Word object to be looked up.
  */
-public class WordAttributesAdapter extends FragmentPagerAdapter {
+public class AttributesFragmentAdapter extends FragmentPagerAdapter {
 
-    //    private static final String LOG_TAG = WordAttributesAdapter.class.getName();
+    //    private static final String LOG_TAG = AttributesFragmentAdapter.class.getName();
     private Context mContext;
     private static final int PAGE_COUNT = 3;
 
     /**
-     * Create a new {@link WordAttributesAdapter} object.
+     * Create a new {@link AttributesFragmentAdapter} object.
      *
      * @param context is the context of the app.
      * @param fm      is the fragment manager that will keep each fragment's state in the adapter
      *                across swipes.
      */
-    public WordAttributesAdapter(Context context, FragmentManager fm, String word) {
+    public AttributesFragmentAdapter(Context context, FragmentManager fm, String word) {
         super(fm);
         mContext = context;
         Bundle mBundle = new Bundle();
