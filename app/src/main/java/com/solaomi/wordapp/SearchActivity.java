@@ -15,7 +15,6 @@ import net.jeremybrooks.knicker.dto.WordOfTheDay;
 public class SearchActivity extends AppCompatActivity {
 
 //    private static final String LOG_TAG = SearchActivity.class.getName();
-
     private static final int WORD_OF_THE_DAY_LOADER_ID = 1;
     private String mWordOfTheDay;
     private String mWordOfTheDayDefinition;
@@ -55,6 +54,7 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+        // Implement a loadercallback for the Word-of-the-Day loader.
         LoaderCallbacks<WordOfTheDay> wordOfTheDayLoaderListener =
                 new LoaderCallbacks<WordOfTheDay>() {
                     @Override
