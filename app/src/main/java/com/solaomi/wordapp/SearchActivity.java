@@ -2,8 +2,11 @@ package com.solaomi.wordapp;
 
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
+import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -64,7 +67,7 @@ public class SearchActivity extends AppCompatActivity {
 
                     @Override
                     public void onLoadFinished(Loader<WordOfTheDay> loader, WordOfTheDay wordOfTheDay) {
-                        updateUI(wordOfTheDay);
+                        updateUI(wordOfTheDay, true);
                     }
 
                     @Override
@@ -76,45 +79,68 @@ public class SearchActivity extends AppCompatActivity {
                     }
                 };
 
+        // Get a reference to the ConnectivityManager to check state of network connectivity
+        ConnectivityManager connMgr =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        // A reference to the LoaderManager, in order to interact with loaders.
-        LoaderManager loaderManager = getLoaderManager();
+        // Get details on the currently active default data network
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 
-        // Initialize the loader. Pass in the int ID constant defined above and pass in null for
-        // the bundle. Pass in the wordOfTheDayLoaderListener for the LoaderCallbacks parameter.
-        loaderManager.initLoader(WORD_OF_THE_DAY_LOADER_ID, null, wordOfTheDayLoaderListener);
+        if (networkInfo != null && networkInfo.isConnectedOrConnecting()) {
+            // A reference to the LoaderManager, in order to interact with loaders.
+            LoaderManager loaderManager = getLoaderManager();
+
+            // Initialize the loader. Pass in the int ID constant defined above and pass in null for
+            // the bundle. Pass in the wordOfTheDayLoaderListener for the LoaderCallbacks parameter.
+            loaderManager.initLoader(WORD_OF_THE_DAY_LOADER_ID, null,
+                    wordOfTheDayLoaderListener);
+        } else {
+            updateUI(null, false);
+        }
     }
 
     /**
-     * Update the screen to display the Wordnki API's Word-of-the-Day.
+     * Update the screen to display the relevant information depending on the network state.
      *
      * @param wordOfTheDay is a WordOfTheDay object containing the Word-of-the-Day, including
      *                     definitions and example sentences.
      */
-    private void updateUI(WordOfTheDay wordOfTheDay) {
-
-        // Word from wordOfTheDay object.
-        mWordOfTheDay = wordOfTheDay.getWord();
-
-        // Definition from wordOfTheDay object.
-        mWordOfTheDayDefinition = wordOfTheDay.getDefinitions().get(0).getText();
-
-        // Example from wordOfTheDay object.
-        mWordOfTheDayExample = wordOfTheDay.getExamples().get(0).getText();
-
-        // Find reference to the {@link TextView} in the layout and set text to Word-of-the-Day.
+    private void updateUI(WordOfTheDay wordOfTheDay, boolean isConnected) {
+        // Find reference to the {@link TextView}'s.
         TextView wordTextView = findViewById(R.id.word_of_the_day);
-        wordTextView.setText(mWordOfTheDay);
-
-        // Find reference to the {@link TextView} in the layout and set text to Word-of-the-Day's
-        // first definition.
         TextView definitionTextView = findViewById(R.id.word_of_the_day_definition);
-        definitionTextView.setText(mWordOfTheDayDefinition);
-
-        // Find reference to the {@link TextView} in the layout and set text to Word-of-the-Day's
-        // first example.
         TextView exampleTextView = findViewById(R.id.word_of_the_day_example);
-        exampleTextView.setText(mWordOfTheDayExample);
+
+        if (isConnected && wordOfTheDay != null) {
+            // Word from wordOfTheDay object.
+            mWordOfTheDay = wordOfTheDay.getWord();
+
+            // Definition from wordOfTheDay object.
+            mWordOfTheDayDefinition = wordOfTheDay.getDefinitions().get(0).getText();
+
+            // Example from wordOfTheDay object.
+            mWordOfTheDayExample = wordOfTheDay.getExamples().get(0).getText();
+
+            // Set text to the {@link TextView}'s
+            wordTextView.setText(mWordOfTheDay);
+            definitionTextView.setText(mWordOfTheDayDefinition);
+            exampleTextView.setText(mWordOfTheDayExample);
+        } else {
+            // Disable Views
+            wordTextView.setVisibility(View.GONE);
+            definitionTextView.setVisibility(View.GONE);
+            exampleTextView.setVisibility(View.GONE);
+
+            SearchView wordLookupSearchView = findViewById(R.id.word_search_view);
+            wordLookupSearchView.setVisibility(View.GONE);
+
+            TextView wordOfTheDayHeader = findViewById(R.id.word_of_the_day_header);
+            wordOfTheDayHeader.setVisibility(View.GONE);
+
+            // Update empty state with no connection error message
+            TextView emptyStateTextView = findViewById(R.id.empty_view);
+            emptyStateTextView.setText(R.string.no_internet_connection);
+        }
     }
 
     /**

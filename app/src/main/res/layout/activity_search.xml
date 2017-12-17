@@ -18,6 +18,7 @@
         android:queryHint="@string/search_words" />
 
     <TextView
+        android:id="@+id/word_of_the_day_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/word_of_the_day"
@@ -56,4 +57,17 @@
         style="@android:style/TextAppearance.DeviceDefault.Medium"
         tools:text="Hello World!" />
 
+    <!-- Empty view is only visible when there is no Internet connection. -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/empty_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textAppearance="?android:textAppearanceMedium"/>
+
+    </RelativeLayout>
 </LinearLayout>
