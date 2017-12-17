@@ -13,19 +13,19 @@ import net.jeremybrooks.knicker.dto.Definition;
 import java.util.List;
 
 /**
- * {@link AttributesAdapter} is an {@link ArrayAdapter} that can provide the layout for each list
+ * {@link AttributesArrayAdapter} is an {@link ArrayAdapter} that can provide the layout for each list
  * item based on a data source, which is a list of {@link Definition} or {@link RelatedWord} objects.
  */
-public class AttributesAdapter<Type> extends ArrayAdapter<Type> {
-//    private static final String LOG_TAG = AttributesAdapter.class.getName();
+public class AttributesArrayAdapter<Type> extends ArrayAdapter<Type> {
+//    private static final String LOG_TAG = AttributesArrayAdapter.class.getName();
 
     /**
-     * Create a new {@link AttributesAdapter} object.
+     * Create a new {@link AttributesArrayAdapter} object.
      *
      * @param context is the current context (i.e. Activity) that the adapter is being created in.
      * @param list is the list of objects to be displayed.
      */
-    public AttributesAdapter(Context context, List<Type> list) {
+    public AttributesArrayAdapter(Context context, List<Type> list) {
         super(context, 0, list);
     }
 

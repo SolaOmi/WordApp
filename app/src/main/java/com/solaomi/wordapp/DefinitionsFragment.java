@@ -23,7 +23,7 @@ public class DefinitionsFragment extends Fragment {
     //    private static final String LOG_TAG = DefinitionsFragment.class.getName();
     private static final int DEFINITIONS_LOADER_ID = 1;
     private String mWord;
-    private AttributesAdapter mAdapter;
+    private AttributesArrayAdapter mAdapter;
 
     public DefinitionsFragment() {
         // Required empty public constructor
@@ -54,10 +54,10 @@ public class DefinitionsFragment extends Fragment {
                             mAdapter.clear();
                         }
 
-                        // Instantiate a {@link AttributesAdapter}, whose data source is a list of
+                        // Instantiate a {@link AttributesArrayAdapter}, whose data source is a list of
                         // {@link Definition}s. The adapter knows how to create list items for each
                         // item in the list.
-                        mAdapter = new AttributesAdapter<>(getActivity(), data);
+                        mAdapter = new AttributesArrayAdapter<>(getActivity(), data);
 
                         ListView listView = rootView.findViewById(R.id.list);
                         listView.setAdapter(mAdapter);

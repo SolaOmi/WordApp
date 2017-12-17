@@ -24,7 +24,7 @@ public class RelatedFragment extends Fragment {
 //    private static final String LOG_TAG = RelatedFragment.class.getName();
     private static final int ANTONYM_SYNONYM_LOADER_ID = 1;
     private String mWord;
-    private AttributesAdapter mAdapter;
+    private AttributesArrayAdapter mAdapter;
 
     public RelatedFragment() {
         // Required empty public constructor
@@ -83,10 +83,10 @@ public class RelatedFragment extends Fragment {
                             mAdapter.clear();
                         }
 
-                        // Instantiate a {@link AttributesAdapter}, whose data source is a list of
+                        // Instantiate a {@link AttributesArrayAdapter}, whose data source is a list of
                         // {@link RelatedWord}s. The adapter knows how to create list items for each
                         // item in the list.
-                        mAdapter = new AttributesAdapter<>(getActivity(), words);
+                        mAdapter = new AttributesArrayAdapter<>(getActivity(), words);
 
                         ListView listView = rootView.findViewById(R.id.list);
                         listView.setAdapter(mAdapter);
