@@ -24,4 +24,9 @@
     <!-- Relationship Types-->
     <string name="antonym">antonym</string>
     <string name="synonym">synonym</string>
+
+    <!-- When the word is not in the dictionary -->
+    <string name="no_definitions">No definitions found</string>
+    <string name="no_related">No antonym or synonyms found</string>
+    <string name="no_examples">No examples found</string>
 </resources>

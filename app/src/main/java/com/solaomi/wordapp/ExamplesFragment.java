@@ -30,6 +30,7 @@ public class ExamplesFragment extends Fragment {
     private static final int EXAMPLES_LOADER_ID = 1;
     private String mWord;
     private ArrayAdapter<String> mAdapter;
+    private TextView mEmptyStateTextView;
 
     public ExamplesFragment() {
         // Required empty public constructor
@@ -39,6 +40,7 @@ public class ExamplesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.word_list, container, false);
+        mEmptyStateTextView = rootView.findViewById(R.id.empty_view);
 
         Bundle bundle = getActivity().getIntent().getExtras();
         if (bundle != null) {
@@ -62,6 +64,9 @@ public class ExamplesFragment extends Fragment {
 
                     @Override
                     public void onLoadFinished(Loader<List<Example>> loader, List<Example> data) {
+                        // Set empty state text to display "No examples found."
+                        mEmptyStateTextView.setText(R.string.no_examples);
+
                         // Create a list of example sentences.
                         ArrayList<String> examples = new ArrayList<>();
 
@@ -75,8 +80,8 @@ public class ExamplesFragment extends Fragment {
                         mAdapter.addAll(examples);
 
                         ListView listView = rootView.findViewById(R.id.list);
-
                         listView.setAdapter(mAdapter);
+                        listView.setEmptyView(mEmptyStateTextView);
                     }
 
                     @Override
@@ -101,8 +106,7 @@ public class ExamplesFragment extends Fragment {
             // the bundle. Pass in the examplesLoaderListener for the LoaderCallbacks parameter.
             loaderManager.initLoader(EXAMPLES_LOADER_ID, null, examplesLoaderListener);
         } else {
-            TextView emptyStateTextView = rootView.findViewById(R.id.empty_view);
-            emptyStateTextView.setText(R.string.no_internet_connection);
+            mEmptyStateTextView.setText(R.string.no_internet_connection);
         }
 
         return rootView;

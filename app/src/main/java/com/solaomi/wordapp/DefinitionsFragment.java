@@ -28,6 +28,7 @@ public class DefinitionsFragment extends Fragment {
     private static final int DEFINITIONS_LOADER_ID = 1;
     private String mWord;
     private AttributesArrayAdapter mAdapter;
+    private TextView mEmptyStateTextView;
 
     public DefinitionsFragment() {
         // Required empty public constructor
@@ -37,6 +38,7 @@ public class DefinitionsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.word_list, container, false);
+        mEmptyStateTextView = rootView.findViewById(R.id.empty_view);
 
         Bundle bundle = getActivity().getIntent().getExtras();
         if (bundle != null) {
@@ -53,6 +55,9 @@ public class DefinitionsFragment extends Fragment {
 
                     @Override
                     public void onLoadFinished(Loader<List<Definition>> loader, List<Definition> data) {
+                        // Set empty state text to display "No definitions found."
+                        mEmptyStateTextView.setText(R.string.no_definitions);
+
                         // Clear the adapter of previous definitions data
                         if (mAdapter != null) {
                             mAdapter.clear();
@@ -65,6 +70,8 @@ public class DefinitionsFragment extends Fragment {
 
                         ListView listView = rootView.findViewById(R.id.list);
                         listView.setAdapter(mAdapter);
+                        listView.setEmptyView(mEmptyStateTextView);
+
                     }
 
                     @Override
@@ -88,8 +95,7 @@ public class DefinitionsFragment extends Fragment {
             // the bundle. Pass in the definitionsLoaderListener for the LoaderCallbacks parameter.
             loaderManager.initLoader(DEFINITIONS_LOADER_ID, null, definitionsLoaderListener);
         } else {
-            TextView emptyStateTextView = rootView.findViewById(R.id.empty_view);
-            emptyStateTextView.setText(R.string.no_internet_connection);
+            mEmptyStateTextView.setText(R.string.no_internet_connection);
         }
 
         return rootView;
