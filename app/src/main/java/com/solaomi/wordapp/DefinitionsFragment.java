@@ -88,7 +88,7 @@ public class DefinitionsFragment extends Fragment {
             // the bundle. Pass in the definitionsLoaderListener for the LoaderCallbacks parameter.
             loaderManager.initLoader(DEFINITIONS_LOADER_ID, null, definitionsLoaderListener);
         } else {
-            TextView emptyStateTextView = rootView.findViewById(R.id.word_list_empty_view);
+            TextView emptyStateTextView = rootView.findViewById(R.id.empty_view);
             emptyStateTextView.setText(R.string.no_internet_connection);
         }
 

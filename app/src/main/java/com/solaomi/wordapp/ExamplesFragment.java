@@ -101,7 +101,7 @@ public class ExamplesFragment extends Fragment {
             // the bundle. Pass in the examplesLoaderListener for the LoaderCallbacks parameter.
             loaderManager.initLoader(EXAMPLES_LOADER_ID, null, examplesLoaderListener);
         } else {
-            TextView emptyStateTextView = rootView.findViewById(R.id.word_list_empty_view);
+            TextView emptyStateTextView = rootView.findViewById(R.id.empty_view);
             emptyStateTextView.setText(R.string.no_internet_connection);
         }
 

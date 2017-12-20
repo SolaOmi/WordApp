@@ -138,7 +138,7 @@ public class SearchActivity extends AppCompatActivity {
             wordOfTheDayHeader.setVisibility(View.GONE);
 
             // Update empty state with no connection error message
-            TextView emptyStateTextView = findViewById(R.id.activity_search_empty_view);
+            TextView emptyStateTextView = findViewById(R.id.empty_view);
             emptyStateTextView.setText(R.string.no_internet_connection);
         }
     }

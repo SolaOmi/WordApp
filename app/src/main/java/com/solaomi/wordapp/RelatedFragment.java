@@ -117,7 +117,7 @@ public class RelatedFragment extends Fragment {
             // the bundle. Pass in the relatedLoaderListener for the LoaderCallbacks parameter.
             loaderManager.initLoader(RELATED_LOADER_ID, null, relatedLoaderListener);
         } else {
-            TextView emptyStateTextView = rootView.findViewById(R.id.word_list_empty_view);
+            TextView emptyStateTextView = rootView.findViewById(R.id.empty_view);
             emptyStateTextView.setText(R.string.no_internet_connection);
         }
 
