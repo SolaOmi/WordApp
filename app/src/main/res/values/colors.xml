@@ -5,4 +5,13 @@
     <color name="colorAccent">#FF4081</color>
     <color name="lightGray">#D3D3D3</color>
     <color name="white">#FFFFFF</color>
+
+    <!-- Color label for antonyms -->
+    <color name="antonym">#FF0000</color>
+
+    <!-- Color label for synonyms -->
+    <color name="synonym">#00FF00</color>
+
+    <!-- Color for default data -->
+    <color name="defaultColor">#FFFFFF</color>
 </resources>

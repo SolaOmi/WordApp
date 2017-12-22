@@ -2,6 +2,7 @@ package com.solaomi.wordapp;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,12 +60,33 @@ public class AttributesArrayAdapter<Type> extends ArrayAdapter<Type> {
         if ( currentItem instanceof RelatedWord) {
             // Get the type and word from the currentItem object and set this text on
             // their respective TextView's.
-            typeTextView.setText(((RelatedWord) currentItem).getRelatedType());
-            contentTextView.setText(((RelatedWord) currentItem).getRelatedWord());
+            String typeText = ((RelatedWord) currentItem).getRelatedType();
+            String contentText = ((RelatedWord) currentItem).getRelatedWord();
+            int typeColor = getRelatedTypeColor(typeText);
+
+            typeTextView.setText(typeText);
+            contentTextView.setText(contentText);
+            typeTextView.setBackgroundColor(typeColor);
         }
 
         // Return the whole definitions list item layout (containing 2 TextViews) so that it can be
         // shown in the ListView.
         return listItemView;
+    }
+
+    private int getRelatedTypeColor(String type) {
+        int relatedTypeColorResourceId;
+        switch (type) {
+            case "antonym":
+                relatedTypeColorResourceId = R.color.antonym;
+                break;
+            case "synonym":
+                relatedTypeColorResourceId = R.color.synonym;
+                break;
+            default:
+                relatedTypeColorResourceId = R.color.defaultColor;
+                break;
+        }
+        return ContextCompat.getColor(getContext(), relatedTypeColorResourceId);
     }
 }
