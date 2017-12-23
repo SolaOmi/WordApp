@@ -6,12 +6,16 @@
     <color name="lightGray">#D3D3D3</color>
     <color name="white">#FFFFFF</color>
 
-    <!-- Color label for antonyms -->
+    <!-- Color labels for attribute types -->
     <color name="antonym">#FF0000</color>
-
-    <!-- Color label for synonyms -->
     <color name="synonym">#00FF00</color>
-
-    <!-- Color for default data -->
-    <color name="defaultColor">#FFFFFF</color>
+    <color name="noun">#82E0AA</color>
+    <color name="pronoun">#FFFF00</color>
+    <color name="adjective">#EB984E</color>
+    <color name="verb">#5DADE2</color>
+    <color name="adverb">#F1948A</color>
+    <color name="preposition">#4B44CF</color>
+    <color name="conjunction">#C39BD3</color>
+    <color name="interjection">#8E44AD</color>
+    <color name="defaultColor">#424949</color>
 </resources>

@@ -18,7 +18,6 @@ import java.util.List;
  * item based on a data source, which is a list of {@link Definition} or {@link RelatedWord} objects.
  */
 public class AttributesArrayAdapter<Type> extends ArrayAdapter<Type> {
-//    private static final String LOG_TAG = AttributesArrayAdapter.class.getName();
 
     /**
      * Create a new {@link AttributesArrayAdapter} object.
@@ -48,25 +47,35 @@ public class AttributesArrayAdapter<Type> extends ArrayAdapter<Type> {
         TextView typeTextView = listItemView.findViewById(R.id.word_attribute_type);
         TextView contentTextView = listItemView.findViewById(R.id.word_attribute_content);
 
+        String currentTypeText;
+        String currentContentText;
+        int currentTypeColor;
+
         // Check if the object is of type Definition
         if ( currentItem instanceof Definition) {
-            // Get part of speech and definition from the currentItem object and set this text on
+            // Get the type and word from the currentItem object and set this text on
             // their respective TextView's.
-            typeTextView.setText(((Definition) currentItem).getPartOfSpeech());
-            contentTextView.setText(((Definition) currentItem).getText());
+            currentTypeText = ((Definition) currentItem).getPartOfSpeech();
+            currentTypeText = getGeneralPartOfSpeech(currentTypeText);
+            currentContentText =  ((Definition) currentItem).getText();
+            currentTypeColor = getRelatedTypeColor(currentTypeText);
+
+            typeTextView.setText(currentTypeText);
+            typeTextView.setBackgroundColor(currentTypeColor);
+            contentTextView.setText(currentContentText);
         }
 
         // Check if the object is of type RelatedWord
         if ( currentItem instanceof RelatedWord) {
             // Get the type and word from the currentItem object and set this text on
             // their respective TextView's.
-            String typeText = ((RelatedWord) currentItem).getRelatedType();
-            String contentText = ((RelatedWord) currentItem).getRelatedWord();
-            int typeColor = getRelatedTypeColor(typeText);
+            currentTypeText = ((RelatedWord) currentItem).getRelatedType();
+            currentContentText = ((RelatedWord) currentItem).getRelatedWord();
+            currentTypeColor = getRelatedTypeColor(currentTypeText);
 
-            typeTextView.setText(typeText);
-            contentTextView.setText(contentText);
-            typeTextView.setBackgroundColor(typeColor);
+            typeTextView.setText(currentTypeText);
+            typeTextView.setBackgroundColor(currentTypeColor);
+            contentTextView.setText(currentContentText);
         }
 
         // Return the whole definitions list item layout (containing 2 TextViews) so that it can be
@@ -83,10 +92,55 @@ public class AttributesArrayAdapter<Type> extends ArrayAdapter<Type> {
             case "synonym":
                 relatedTypeColorResourceId = R.color.synonym;
                 break;
+            case "noun":
+                relatedTypeColorResourceId = R.color.noun;
+                break;
+            case "pronoun":
+                relatedTypeColorResourceId = R.color.pronoun;
+                break;
+            case "adjective":
+                relatedTypeColorResourceId = R.color.adjective;
+                break;
+            case "verb":
+                relatedTypeColorResourceId = R.color.verb;
+                break;
+            case "adverb":
+                relatedTypeColorResourceId = R.color.adverb;
+                break;
+            case "preposition":
+                relatedTypeColorResourceId = R.color.preposition;
+                break;
+            case "conjuction":
+                relatedTypeColorResourceId = R.color.conjunction;
+                break;
+            case "interjection":
+                relatedTypeColorResourceId = R.color.interjection;
+                break;
             default:
                 relatedTypeColorResourceId = R.color.defaultColor;
                 break;
         }
         return ContextCompat.getColor(getContext(), relatedTypeColorResourceId);
+    }
+
+    // Returns general form of specialized part of speech
+    private String getGeneralPartOfSpeech(String partOfSpeech) {
+        String res;
+        switch (partOfSpeech) {
+            case "noun-plural":
+            case "noun-posessive":
+            case "proper-noun":
+            case "proper-noun-plural":
+            case "proper-noun-possessive":
+                res = getContext().getString(R.string.noun);
+                break;
+            case "verb-transitive":
+            case "verb-intransitive":
+                res = getContext().getString(R.string.verb);
+                break;
+            default:
+                res = partOfSpeech;
+        }
+        return res;
     }
 }

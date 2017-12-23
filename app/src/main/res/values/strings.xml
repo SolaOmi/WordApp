@@ -24,6 +24,14 @@
     <!-- Relationship Types-->
     <string name="antonym">antonym</string>
     <string name="synonym">synonym</string>
+    <string name="noun">noun</string>
+    <string name="pronoun">pronoun</string>
+    <string name="adjective">adjective</string>
+    <string name="verb">verb</string>
+    <string name="adverb">adverb</string>
+    <string name="preposition">preposition</string>
+    <string name="conjunction">conjuction</string>
+    <string name="interjection">interjection</string>
 
     <!-- When the word is not in the dictionary -->
     <string name="no_definitions">No definitions found</string>
