@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
+        android:layout_gravity="fill"
         android:padding="8dp"
         tools:text="@string/sample_part_of_speech"/>
 
@@ -23,5 +24,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="4"
         android:gravity="center"
+        android:layout_gravity="fill"
         tools:text="@string/sample_definition"/>
 </LinearLayout>

@@ -30,7 +30,7 @@
     <string name="verb">verb</string>
     <string name="adverb">adverb</string>
     <string name="preposition">preposition</string>
-    <string name="conjunction">conjuction</string>
+    <string name="conjunction">conjunction</string>
     <string name="interjection">interjection</string>
 
     <!-- When the word is not in the dictionary -->
