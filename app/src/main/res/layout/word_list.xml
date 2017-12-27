@@ -8,7 +8,9 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:drawSelectorOnTop="true"/>
+        android:drawSelectorOnTop="true"
+        android:divider="@android:color/black"
+        android:dividerHeight="@dimen/list_item_divider_height"/>
 
     <include layout="@layout/empty_view"/>
 

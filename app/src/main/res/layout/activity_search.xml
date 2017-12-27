@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightGray"
+    android:background="@color/tan_background"
     android:orientation="vertical"
     tools:context="com.solaomi.wordapp.SearchActivity">
 
@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:background="@color/white"
         android:iconifiedByDefault="false"
         android:inputType="text"
         android:queryHint="@string/search_words" />
@@ -22,7 +21,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/word_of_the_day"
-        android:background="@color/lightGray"
         android:layout_margin="8dp"
         android:gravity="center"
         style="@android:style/TextAppearance.DeviceDefault.Large"/>
@@ -31,7 +29,6 @@
         android:id="@+id/word_of_the_day"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/lightGray"
         android:layout_margin="8dp"
         android:gravity="center"
         style="@android:style/TextAppearance.DeviceDefault.Medium"
@@ -41,7 +38,6 @@
         android:id="@+id/word_of_the_day_definition"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/lightGray"
         android:layout_margin="8dp"
         android:gravity="center"
         style="@android:style/TextAppearance.DeviceDefault.Medium"
@@ -51,7 +47,6 @@
         android:id="@+id/word_of_the_day_example"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/lightGray"
         android:layout_margin="8dp"
         android:gravity="center"
         style="@android:style/TextAppearance.DeviceDefault.Medium"

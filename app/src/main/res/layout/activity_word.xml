@@ -2,11 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightGray"
+    android:background="@color/tan_background"
+
     android:orientation="vertical" >
 
     <android.support.design.widget.TabLayout
-        android:background="@android:color/black"
+        android:background="@color/colorPrimary"
         android:id="@+id/tabs"
         style="@style/AttributeTab"
         android:layout_width="match_parent"
