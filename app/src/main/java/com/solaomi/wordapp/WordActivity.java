@@ -23,9 +23,8 @@ public class WordActivity extends AppCompatActivity {
         if (bundle != null) {
             mWord = bundle.getString("word");
 
-            //Find example TextView
-            TextView exampleTextView = findViewById(R.id.word_text);
-            exampleTextView.setText(mWord);
+            // Set the title of the activity to the word being looked up
+            setTitle(mWord);
         }
 
         // Find the view pager that will allow the user to swipe between fragments.
