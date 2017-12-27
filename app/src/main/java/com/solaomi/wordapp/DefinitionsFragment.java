@@ -9,9 +9,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,8 +26,12 @@ import java.util.List;
  */
 public class DefinitionsFragment extends Fragment {
 
-    //    private static final String LOG_TAG = DefinitionsFragment.class.getName();
+//    private static final String LOG_TAG = DefinitionsFragment.class.getName();
     private static final int DEFINITIONS_LOADER_ID = 1;
+    private static final int DEFAULT_MAX_LINE_COUNT = 3;
+    // This is totally arbitrary, just high enough to fit any definition within it's TextView
+    // when expanded.
+    private static final int EXPANDED_MAX_LINE_COUNT =  100;
     private String mWord;
     private AttributesArrayAdapter mAdapter;
     private TextView mEmptyStateTextView;
@@ -71,6 +77,29 @@ public class DefinitionsFragment extends Fragment {
                         ListView listView = rootView.findViewById(R.id.list);
                         listView.setAdapter(mAdapter);
                         listView.setEmptyView(mEmptyStateTextView);
+
+                        // Set a click listener to expand/collapse the TextView's when ellipses are used
+                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                                TextView contentTextView = view.findViewById(R.id.word_attribute_content);
+                                Layout layout = contentTextView.getLayout();
+                                int lines = contentTextView.getLineCount();
+
+                                // expand Textview if their ellipses
+                                if (lines > 0) {
+                                    int ellipsisCount = layout.getEllipsisCount(lines - 1);
+                                    if (ellipsisCount > 0) {
+                                        contentTextView.setMaxLines(EXPANDED_MAX_LINE_COUNT);
+                                    }
+                                }
+
+                                // revert back to default state
+                                if (lines > DEFAULT_MAX_LINE_COUNT) {
+                                    contentTextView.setMaxLines(DEFAULT_MAX_LINE_COUNT);
+                                }
+                            }
+                        });
 
                     }
 
