@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import net.jeremybrooks.knicker.dto.Example;
@@ -31,6 +32,7 @@ public class ExamplesFragment extends Fragment {
     private String mWord;
     private ArrayAdapter<String> mAdapter;
     private TextView mEmptyStateTextView;
+    private ProgressBar mLoadingIndicator;
 
     public ExamplesFragment() {
         // Required empty public constructor
@@ -41,6 +43,8 @@ public class ExamplesFragment extends Fragment {
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.word_list, container, false);
         mEmptyStateTextView = rootView.findViewById(R.id.empty_view);
+        mLoadingIndicator = rootView.findViewById(R.id.loading_indicator);
+
 
         Bundle bundle = getActivity().getIntent().getExtras();
         if (bundle != null) {
@@ -64,6 +68,9 @@ public class ExamplesFragment extends Fragment {
 
                     @Override
                     public void onLoadFinished(Loader<List<Example>> loader, List<Example> data) {
+                        // Hide loading indicator because data has been loaded
+                        mLoadingIndicator.setVisibility(View.GONE);
+
                         // Set empty state text to display "No examples found."
                         mEmptyStateTextView.setText(R.string.no_examples);
 
@@ -106,6 +113,8 @@ public class ExamplesFragment extends Fragment {
             // the bundle. Pass in the examplesLoaderListener for the LoaderCallbacks parameter.
             loaderManager.initLoader(EXAMPLES_LOADER_ID, null, examplesLoaderListener);
         } else {
+            // First, hide loading indicator so error message will be visible
+            mLoadingIndicator.setVisibility(View.GONE);
             mEmptyStateTextView.setText(R.string.no_internet_connection);
         }
 

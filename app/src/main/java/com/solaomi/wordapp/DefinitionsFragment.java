@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import net.jeremybrooks.knicker.dto.Definition;
@@ -35,6 +36,7 @@ public class DefinitionsFragment extends Fragment {
     private String mWord;
     private AttributesArrayAdapter mAdapter;
     private TextView mEmptyStateTextView;
+    private ProgressBar mLoadingIndicator;
 
     public DefinitionsFragment() {
         // Required empty public constructor
@@ -45,6 +47,7 @@ public class DefinitionsFragment extends Fragment {
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.word_list, container, false);
         mEmptyStateTextView = rootView.findViewById(R.id.empty_view);
+        mLoadingIndicator = rootView.findViewById(R.id.loading_indicator);
 
         Bundle bundle = getActivity().getIntent().getExtras();
         if (bundle != null) {
@@ -61,6 +64,9 @@ public class DefinitionsFragment extends Fragment {
 
                     @Override
                     public void onLoadFinished(Loader<List<Definition>> loader, List<Definition> data) {
+                        // Hide loading indicator because data has been loaded
+                        mLoadingIndicator.setVisibility(View.GONE);
+
                         // Set empty state text to display "No definitions found."
                         mEmptyStateTextView.setText(R.string.no_definitions);
 
@@ -124,6 +130,8 @@ public class DefinitionsFragment extends Fragment {
             // the bundle. Pass in the definitionsLoaderListener for the LoaderCallbacks parameter.
             loaderManager.initLoader(DEFINITIONS_LOADER_ID, null, definitionsLoaderListener);
         } else {
+            // First, hide loading indicator so error message will be visible
+            mLoadingIndicator.setVisibility(View.GONE);
             mEmptyStateTextView.setText(R.string.no_internet_connection);
         }
 

@@ -13,5 +13,6 @@
         android:dividerHeight="@dimen/list_item_divider_height"/>
 
     <include layout="@layout/empty_view"/>
+    <include layout="@layout/loading_indicator"/>
 
 </RelativeLayout>

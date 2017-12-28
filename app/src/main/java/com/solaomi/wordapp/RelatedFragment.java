@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import net.jeremybrooks.knicker.dto.Related;
@@ -30,6 +31,7 @@ public class RelatedFragment extends Fragment {
     private String mWord;
     private AttributesArrayAdapter mAdapter;
     private TextView mEmptyStateTextView;
+    private ProgressBar mLoadingIndicator;
 
     public RelatedFragment() {
         // Required empty public constructor
@@ -40,6 +42,7 @@ public class RelatedFragment extends Fragment {
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.word_list, container, false);
         mEmptyStateTextView = rootView.findViewById(R.id.empty_view);
+        mLoadingIndicator = rootView.findViewById(R.id.loading_indicator);
 
         Bundle bundle = getActivity().getIntent().getExtras();
         if (bundle != null) {
@@ -56,6 +59,9 @@ public class RelatedFragment extends Fragment {
 
                     @Override
                     public void onLoadFinished(Loader<List<Related>> loader, List<Related> data) {
+                        // Hide loading indicator because data has been loaded
+                        mLoadingIndicator.setVisibility(View.GONE);
+
                         // Set empty state text to display "No antonyms or synonyms found."
                         mEmptyStateTextView.setText(R.string.no_related);
 
@@ -123,6 +129,8 @@ public class RelatedFragment extends Fragment {
             // the bundle. Pass in the relatedLoaderListener for the LoaderCallbacks parameter.
             loaderManager.initLoader(RELATED_LOADER_ID, null, relatedLoaderListener);
         } else {
+            // First, hide loading indicator so error message will be visible
+            mLoadingIndicator.setVisibility(View.GONE);
             mEmptyStateTextView.setText(R.string.no_internet_connection);
         }
 
