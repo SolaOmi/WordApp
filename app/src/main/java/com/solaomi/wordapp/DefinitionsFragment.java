@@ -1,6 +1,5 @@
 package com.solaomi.wordapp;
 
-
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -20,6 +19,7 @@ import android.widget.TextView;
 
 import net.jeremybrooks.knicker.dto.Definition;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,14 +28,28 @@ import java.util.List;
 public class DefinitionsFragment extends Fragment {
 
 //    private static final String LOG_TAG = DefinitionsFragment.class.getName();
+
+    /** Constant value for the definitions loader ID */
     private static final int DEFINITIONS_LOADER_ID = 1;
+
+    /** Constant value for the max line count of the content TextView */
     private static final int DEFAULT_MAX_LINE_COUNT = 3;
-    // This is totally arbitrary, just high enough to fit any definition within it's TextView
-    // when expanded.
+
+    /** Constant value for the expanded max line count of the content TextView (High enough to fit
+     *  any definition text within the TextView)
+     */
     private static final int EXPANDED_MAX_LINE_COUNT =  100;
+
+    /** Word being looked up */
     private String mWord;
-    private AttributesArrayAdapter mAdapter;
+
+    /** Adapter for list of definition objects */
+    private AttributesArrayAdapter<Definition> mAdapter;
+
+    /** Textview that is displayed when the list is empty */
     private TextView mEmptyStateTextView;
+
+    /** ProgressBar that appears during data retrieval */
     private ProgressBar mLoadingIndicator;
 
     public DefinitionsFragment() {
@@ -46,13 +60,50 @@ public class DefinitionsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.word_list, container, false);
-        mEmptyStateTextView = rootView.findViewById(R.id.empty_view);
-        mLoadingIndicator = rootView.findViewById(R.id.loading_indicator);
 
+        // Get word to be looked up that was passed on from the SearchActivity
         Bundle bundle = getActivity().getIntent().getExtras();
         if (bundle != null) {
             mWord = bundle.getString("word");
         }
+
+        // Find a reference to the {@link ListView} in the layout
+        ListView listView = rootView.findViewById(R.id.list);
+
+        mEmptyStateTextView = rootView.findViewById(R.id.empty_view);
+        listView.setEmptyView(mEmptyStateTextView);
+
+        mLoadingIndicator = rootView.findViewById(R.id.loading_indicator);
+
+        // Create a new adapter that takes an empty list of definition objects as input
+        mAdapter = new AttributesArrayAdapter<>(getActivity(), new ArrayList<Definition>());
+
+        // Set the adapter on the {@link ListView} so the list can be populated in the user
+        // interface
+        listView.setAdapter(mAdapter);
+
+        // Set a click listener to expand/collapse the TextView's when ellipses are used
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                TextView contentTextView = view.findViewById(R.id.word_attribute_content);
+                Layout layout = contentTextView.getLayout();
+                int lines = contentTextView.getLineCount();
+
+                // expand Textview if their ellipses
+                if (lines > 0) {
+                    int ellipsisCount = layout.getEllipsisCount(lines - 1);
+                    if (ellipsisCount > 0) {
+                        contentTextView.setMaxLines(EXPANDED_MAX_LINE_COUNT);
+                    }
+                }
+
+                // revert back to default state
+                if (lines > DEFAULT_MAX_LINE_COUNT) {
+                    contentTextView.setMaxLines(DEFAULT_MAX_LINE_COUNT);
+                }
+            }
+        });
 
         // Implement a loadercallback for the Definitions loader.
         LoaderCallbacks<List<Definition>> definitionsLoaderListener =
@@ -70,49 +121,18 @@ public class DefinitionsFragment extends Fragment {
                         // Set empty state text to display "No definitions found."
                         mEmptyStateTextView.setText(R.string.no_definitions);
 
-                        // Clear the adapter of previous definitions data
-                        if (mAdapter != null) {
-                            mAdapter.clear();
+                        // Clear the adapter of previous data
+                        mAdapter.clear();
+
+                        // If there is a valid list of {@link Definition}s, then add them to the
+                        // adapter's data set. This will trigger the ListView to update
+                        if (data != null) {
+                            mAdapter.addAll(data);
                         }
-
-                        // Instantiate a {@link AttributesArrayAdapter}, whose data source is a list of
-                        // {@link Definition}s. The adapter knows how to create list items for each
-                        // item in the list.
-                        mAdapter = new AttributesArrayAdapter<>(getActivity(), data);
-
-                        ListView listView = rootView.findViewById(R.id.list);
-                        listView.setAdapter(mAdapter);
-                        listView.setEmptyView(mEmptyStateTextView);
-
-                        // Set a click listener to expand/collapse the TextView's when ellipses are used
-                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                                TextView contentTextView = view.findViewById(R.id.word_attribute_content);
-                                Layout layout = contentTextView.getLayout();
-                                int lines = contentTextView.getLineCount();
-
-                                // expand Textview if their ellipses
-                                if (lines > 0) {
-                                    int ellipsisCount = layout.getEllipsisCount(lines - 1);
-                                    if (ellipsisCount > 0) {
-                                        contentTextView.setMaxLines(EXPANDED_MAX_LINE_COUNT);
-                                    }
-                                }
-
-                                // revert back to default state
-                                if (lines > DEFAULT_MAX_LINE_COUNT) {
-                                    contentTextView.setMaxLines(DEFAULT_MAX_LINE_COUNT);
-                                }
-                            }
-                        });
-
                     }
 
                     @Override
-                    public void onLoaderReset(Loader<List<Definition>> loader) {
-                        mAdapter.clear();
-                    }
+                    public void onLoaderReset(Loader<List<Definition>> loader) { mAdapter.clear(); }
                 };
 
         // Get a reference to the ConnectivityManager to check state of network connectivity
@@ -122,6 +142,7 @@ public class DefinitionsFragment extends Fragment {
         // Get details on the currently active default data network
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 
+        // If there is a network connection, fetch data
         if (networkInfo != null && networkInfo.isConnectedOrConnecting()) {
             // A reference to the LoaderManager, in order to interact with loaders.
             LoaderManager loaderManager = getLoaderManager();
@@ -130,8 +151,11 @@ public class DefinitionsFragment extends Fragment {
             // the bundle. Pass in the definitionsLoaderListener for the LoaderCallbacks parameter.
             loaderManager.initLoader(DEFINITIONS_LOADER_ID, null, definitionsLoaderListener);
         } else {
+            // Otherwise, display error
             // First, hide loading indicator so error message will be visible
             mLoadingIndicator.setVisibility(View.GONE);
+
+            // Update empty state with no connection error message.
             mEmptyStateTextView.setText(R.string.no_internet_connection);
         }
 

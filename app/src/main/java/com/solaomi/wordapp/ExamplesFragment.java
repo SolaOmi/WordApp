@@ -28,10 +28,20 @@ import java.util.List;
 public class ExamplesFragment extends Fragment {
 
 //    private static final String LOG_TAG = ExamplesFragment.class.getName();
+
+    /** Constant value for the examples loader ID */
     private static final int EXAMPLES_LOADER_ID = 1;
+
+    /** Word being looked up */
     private String mWord;
+
+    /** Adapter for list of example objects */
     private ArrayAdapter<String> mAdapter;
+
+    /** Textview that is displayed when the list is empty */
     private TextView mEmptyStateTextView;
+
+    /** ProgressBar that appears during data retrieval */
     private ProgressBar mLoadingIndicator;
 
     public ExamplesFragment() {
@@ -42,21 +52,30 @@ public class ExamplesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.word_list, container, false);
-        mEmptyStateTextView = rootView.findViewById(R.id.empty_view);
-        mLoadingIndicator = rootView.findViewById(R.id.loading_indicator);
 
-
+        // Get word to be looked up that was passed on from the SearchActivity
         Bundle bundle = getActivity().getIntent().getExtras();
         if (bundle != null) {
             mWord = bundle.getString("word");
         }
 
-        // Create a new adapter that takes an empty list of Strings as input.
+        // Find a reference to the {@link ListView} in the layout
+        ListView listView = rootView.findViewById(R.id.list);
+
+        mEmptyStateTextView = rootView.findViewById(R.id.empty_view);
+        listView.setEmptyView(mEmptyStateTextView);
+
+        mLoadingIndicator = rootView.findViewById(R.id.loading_indicator);
+
+        // Create a new adapter that takes an empty list of example objects as input
         mAdapter = new ArrayAdapter<>(
                 getActivity(),
                 android.R.layout.simple_list_item_1,
-                new ArrayList<String>()
-        );
+                new ArrayList<String>());
+
+        // Set the adapter on the {@link ListView} so the list can be populated in the user
+        // interface
+        listView.setAdapter(mAdapter);
 
         // Implement a loadercallback for the Examples loader.
         LoaderCallbacks<List<Example>> examplesLoaderListener =
@@ -74,6 +93,9 @@ public class ExamplesFragment extends Fragment {
                         // Set empty state text to display "No examples found."
                         mEmptyStateTextView.setText(R.string.no_examples);
 
+                        // Clear the adapter of previous data
+                        mAdapter.clear();
+
                         // Create a list of example sentences.
                         ArrayList<String> examples = new ArrayList<>();
 
@@ -81,21 +103,11 @@ public class ExamplesFragment extends Fragment {
                             examples.add(e.getText());
                         }
 
-                        // Clear the adapter of previous example sentences data
-                        mAdapter.clear();
-
                         mAdapter.addAll(examples);
-
-                        ListView listView = rootView.findViewById(R.id.list);
-                        listView.setAdapter(mAdapter);
-                        listView.setEmptyView(mEmptyStateTextView);
                     }
 
                     @Override
-                    public void onLoaderReset(Loader<List<Example>> loader) {
-//                      // Loader reset, so we can clear out our existing data.
-                        mAdapter.clear();
-                    }
+                    public void onLoaderReset(Loader<List<Example>> loader) { mAdapter.clear(); }
                 };
 
         // Get a reference to the ConnectivityManager to check state of network connectivity

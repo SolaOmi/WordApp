@@ -27,10 +27,20 @@ import java.util.List;
 public class RelatedFragment extends Fragment {
 
 //    private static final String LOG_TAG = RelatedFragment.class.getName();
+
+    /** Constant value for the related loader ID */
     private static final int RELATED_LOADER_ID = 1;
+
+    /** Word being looked up */
     private String mWord;
-    private AttributesArrayAdapter mAdapter;
+
+    /** Adapter for list of related objects */
+    private AttributesArrayAdapter<RelatedWord> mAdapter;
+
+    /** Textview that is displayed when the list is empty */
     private TextView mEmptyStateTextView;
+
+    /** ProgressBar that appears during data retrieval */
     private ProgressBar mLoadingIndicator;
 
     public RelatedFragment() {
@@ -41,13 +51,27 @@ public class RelatedFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.word_list, container, false);
-        mEmptyStateTextView = rootView.findViewById(R.id.empty_view);
-        mLoadingIndicator = rootView.findViewById(R.id.loading_indicator);
 
+        // Get word to be looked up that was passed on from the SearchActivity
         Bundle bundle = getActivity().getIntent().getExtras();
         if (bundle != null) {
             mWord = bundle.getString("word");
         }
+
+        // Find a reference to the {@link ListView} in the layout
+        ListView listView = rootView.findViewById(R.id.list);
+
+        mEmptyStateTextView = rootView.findViewById(R.id.empty_view);
+        listView.setEmptyView(mEmptyStateTextView);
+
+        mLoadingIndicator = rootView.findViewById(R.id.loading_indicator);
+
+        // Create a new adapter that takes an empty list of relatedword objects as input
+        mAdapter = new AttributesArrayAdapter<>(getActivity(), new ArrayList<RelatedWord>());
+
+        // Set the adapter on the {@link ListView} so the list can be populated in the user
+        // interface
+        listView.setAdapter(mAdapter);
 
         // Implement a loadercallback for the Related Loader
         LoaderCallbacks<List<Related>> relatedLoaderListener =
@@ -65,49 +89,44 @@ public class RelatedFragment extends Fragment {
                         // Set empty state text to display "No antonyms or synonyms found."
                         mEmptyStateTextView.setText(R.string.no_related);
 
-                        String[] types = new String[] {getString(R.string.antonym),
+                        // Clear the adapter of previous data
+                        mAdapter.clear();
+
+                        String[] types = new String[]{getString(R.string.antonym),
                                 getString(R.string.synonym)};
                         List<String> antonyms = null;
                         List<String> synonyms = null;
                         ArrayList<RelatedWord> words = new ArrayList<>();
 
-                        // Get the list of Antonyms and Synonyms from the List of Related Objects.
-                        for(Related r : data) {
-                            if (r.getRelType().equals(types[0])) {
-                                antonyms = r.getWords();
+                        // If there is a valid list of {@link Related}s, convert them to a list
+                        // of {@link RelatedWord}s
+                        if (data != null) {
+                            // Get the list of Antonyms and Synonyms from the List of Related Objects.
+                            for (Related r : data) {
+                                if (r.getRelType().equals(types[0])) {
+                                    antonyms = r.getWords();
+                                }
+                                if (r.getRelType().equals(types[1])) {
+                                    synonyms = r.getWords();
+                                }
                             }
-                            if (r.getRelType().equals(types[1])) {
-                                synonyms = r.getWords();
+
+                            // Add the list of words from antonyms and synonyms to the list of
+                            // RelatedWord objects.
+                            if (antonyms != null) {
+                                for (String antonym : antonyms) {
+                                    words.add(new RelatedWord(types[0], antonym));
+                                }
+                            }
+
+                            if (synonyms != null) {
+                                for (String synonym : synonyms) {
+                                    words.add(new RelatedWord(types[1], synonym));
+                                }
                             }
                         }
 
-                        // Add the list of words from antonyms and synonyms to the list of
-                        // RelatedWord objects.
-                        if (antonyms != null) {
-                            for(String antonym : antonyms) {
-                                words.add(new RelatedWord(types[0], antonym));
-                            }
-                        }
-
-                        if (synonyms != null) {
-                            for (String synonym : synonyms) {
-                                words.add(new RelatedWord(types[1], synonym));
-                            }
-                        }
-
-                        // Clear the adapter of previous RelatedWord data
-                        if (mAdapter != null) {
-                            mAdapter.clear();
-                        }
-
-                        // Instantiate a {@link AttributesArrayAdapter}, whose data source is a list of
-                        // {@link RelatedWord}s. The adapter knows how to create list items for each
-                        // item in the list.
-                        mAdapter = new AttributesArrayAdapter<>(getActivity(), words);
-
-                        ListView listView = rootView.findViewById(R.id.list);
-                        listView.setAdapter(mAdapter);
-                        listView.setEmptyView(mEmptyStateTextView);
+                        mAdapter.addAll(words);
                     }
 
                     @Override
