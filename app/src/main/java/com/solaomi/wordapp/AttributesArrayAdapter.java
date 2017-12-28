@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import net.jeremybrooks.knicker.dto.Definition;
+import net.jeremybrooks.knicker.dto.Example;
 
 import java.util.List;
 
@@ -75,6 +76,16 @@ public class AttributesArrayAdapter<Type> extends ArrayAdapter<Type> {
 
             typeTextView.setText(currentTypeText);
             typeTextView.setBackgroundColor(currentTypeColor);
+            contentTextView.setText(currentContentText);
+        }
+
+        // Check if the object is of type Example
+        if ( currentItem instanceof Example) {
+            // Get the word from the currentItem object and set this text on
+            // its respective TextView's and make the type TextView invisible.
+            currentContentText = ((Example) currentItem).getText();
+
+            typeTextView.setVisibility(View.GONE);
             contentTextView.setText(currentContentText);
         }
 

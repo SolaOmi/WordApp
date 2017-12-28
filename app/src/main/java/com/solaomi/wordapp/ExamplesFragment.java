@@ -36,7 +36,7 @@ public class ExamplesFragment extends Fragment {
     private String mWord;
 
     /** Adapter for list of example objects */
-    private ArrayAdapter<String> mAdapter;
+    private AttributesArrayAdapter<Example> mAdapter;
 
     /** Textview that is displayed when the list is empty */
     private TextView mEmptyStateTextView;
@@ -68,10 +68,7 @@ public class ExamplesFragment extends Fragment {
         mLoadingIndicator = rootView.findViewById(R.id.loading_indicator);
 
         // Create a new adapter that takes an empty list of example objects as input
-        mAdapter = new ArrayAdapter<>(
-                getActivity(),
-                android.R.layout.simple_list_item_1,
-                new ArrayList<String>());
+        mAdapter = new AttributesArrayAdapter<>(getActivity(), new ArrayList<Example>());
 
         // Set the adapter on the {@link ListView} so the list can be populated in the user
         // interface
@@ -96,14 +93,11 @@ public class ExamplesFragment extends Fragment {
                         // Clear the adapter of previous data
                         mAdapter.clear();
 
-                        // Create a list of example sentences.
-                        ArrayList<String> examples = new ArrayList<>();
-
-                        for (Example e : data) {
-                            examples.add(e.getText());
+                        // If there is a valid list of {@link Example}s, then add them to the
+                        // adapter's data set. This will trigger the ListView to update
+                        if (data != null) {
+                            mAdapter.addAll(data);
                         }
-
-                        mAdapter.addAll(examples);
                     }
 
                     @Override
