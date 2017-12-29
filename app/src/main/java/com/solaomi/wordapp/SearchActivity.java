@@ -8,6 +8,7 @@ import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.SearchView;
@@ -31,8 +32,11 @@ public class SearchActivity extends AppCompatActivity {
         // Find View that shows Word-of-the-Day.
         final TextView wordOfTheDayTextView = findViewById(R.id.word_of_the_day);
 
+        // Setup FAB to open up WordActivity when looking for more info on the Word-of-the-day
+        FloatingActionButton fab = findViewById(R.id.fab);
+
         // Set a click listener on Word-of-the-Day TextView.
-        wordOfTheDayTextView.setOnClickListener(new View.OnClickListener() {
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String word = wordOfTheDayTextView.getText().toString();
@@ -110,6 +114,7 @@ public class SearchActivity extends AppCompatActivity {
         TextView wordTextView = findViewById(R.id.word_of_the_day);
         TextView definitionTextView = findViewById(R.id.word_of_the_day_definition);
         TextView exampleTextView = findViewById(R.id.word_of_the_day_example);
+        FloatingActionButton fab = findViewById(R.id.fab);
 
         if (isConnected && wordOfTheDay != null) {
             // Word from wordOfTheDay object.
@@ -130,6 +135,7 @@ public class SearchActivity extends AppCompatActivity {
             wordTextView.setVisibility(View.GONE);
             definitionTextView.setVisibility(View.GONE);
             exampleTextView.setVisibility(View.GONE);
+            fab.setVisibility(View.GONE);
 
             SearchView wordLookupSearchView = findViewById(R.id.word_search_view);
             wordLookupSearchView.setVisibility(View.GONE);
