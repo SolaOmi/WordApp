@@ -7,57 +7,81 @@
     android:orientation="vertical"
     tools:context="com.solaomi.wordapp.SearchActivity">
 
-    <SearchView
-        android:id="@+id/word_search_view"
+    <FrameLayout
+        android:id="@+id/search_frame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:iconifiedByDefault="false"
-        android:inputType="text"
-        android:queryHint="@string/search_words" />
+        android:layout_margin="16dp"
+        android:background="@drawable/rounded_corner"
+        android:elevation="8dp">
 
-    <TextView
-        android:id="@+id/word_of_the_day_header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/word_of_the_day"
-        android:layout_margin="8dp"
-        android:gravity="center"
-        style="@android:style/TextAppearance.DeviceDefault.Large"/>
+        <SearchView
+            android:id="@+id/word_search_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:iconifiedByDefault="false"
+            android:inputType="text"
+            android:queryHint="@string/search_words" />
+    </FrameLayout>
 
-    <TextView
-        android:id="@+id/word_of_the_day"
+    <FrameLayout
+        android:id="@+id/word_of_the_day_frame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:gravity="center"
-        style="@android:style/TextAppearance.DeviceDefault.Medium"
-        tools:text="Hello World!" />
+        android:layout_margin="16dp"
+        android:background="@drawable/rounded_corner"
+        android:elevation="8dp">
 
-    <TextView
-        android:id="@+id/word_of_the_day_definition"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:gravity="center"
-        style="@android:style/TextAppearance.DeviceDefault.Medium"
-        tools:text="Hello World!" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/word_of_the_day_example"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:gravity="center"
-        style="@android:style/TextAppearance.DeviceDefault.Medium"
-        tools:text="Hello World!" />
+            <TextView
+                android:id="@+id/word_of_the_day_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/word_of_the_day"
+                android:layout_margin="8dp"
+                android:gravity="center"
+                style="@android:style/TextAppearance.DeviceDefault.Large"/>
+
+            <TextView
+                android:id="@+id/word_of_the_day"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:gravity="center"
+                style="@android:style/TextAppearance.DeviceDefault.Medium"
+                tools:text="Hello World!" />
+
+            <TextView
+                android:id="@+id/word_of_the_day_definition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:gravity="center"
+                style="@android:style/TextAppearance.DeviceDefault.Medium"
+                tools:text="Hello World!" />
+
+            <TextView
+                android:id="@+id/word_of_the_day_example"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:gravity="center"
+                style="@android:style/TextAppearance.DeviceDefault.Medium"
+                tools:text="Hello World!" />
+        </LinearLayout>
+    </FrameLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:src="@drawable/ic_plus_symbol"
+        android:src="@drawable/ic_more_fab"
         />
 
     <!-- Empty view is only visible when there is no Internet connection. -->

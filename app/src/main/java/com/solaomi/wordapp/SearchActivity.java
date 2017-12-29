@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -110,7 +111,9 @@ public class SearchActivity extends AppCompatActivity {
      *                     definitions and example sentences.
      */
     private void updateUI(WordOfTheDay wordOfTheDay, boolean isConnected) {
-        // Find reference to the {@link TextView}'s.
+        // Find reference to the {@link View}'s and {@link ViewGroup}'s.
+        FrameLayout searchFrameLayout = findViewById(R.id.search_frame);
+        FrameLayout wordOfTheDayFrameLayout = findViewById(R.id.word_of_the_day_frame);
         TextView wordTextView = findViewById(R.id.word_of_the_day);
         TextView definitionTextView = findViewById(R.id.word_of_the_day_definition);
         TextView exampleTextView = findViewById(R.id.word_of_the_day_example);
@@ -131,17 +134,10 @@ public class SearchActivity extends AppCompatActivity {
             definitionTextView.setText(mWordOfTheDayDefinition);
             exampleTextView.setText(mWordOfTheDayExample);
         } else {
-            // Disable Views
-            wordTextView.setVisibility(View.GONE);
-            definitionTextView.setVisibility(View.GONE);
-            exampleTextView.setVisibility(View.GONE);
+            // Disable Views & ViewGroups
             fab.setVisibility(View.GONE);
-
-            SearchView wordLookupSearchView = findViewById(R.id.word_search_view);
-            wordLookupSearchView.setVisibility(View.GONE);
-
-            TextView wordOfTheDayHeader = findViewById(R.id.word_of_the_day_header);
-            wordOfTheDayHeader.setVisibility(View.GONE);
+            searchFrameLayout.setVisibility(View.GONE);
+            wordOfTheDayFrameLayout.setVisibility(View.GONE);
 
             // Update empty state with no connection error message
             TextView emptyStateTextView = findViewById(R.id.empty_view);
