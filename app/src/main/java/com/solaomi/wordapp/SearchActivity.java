@@ -20,36 +20,49 @@ import net.jeremybrooks.knicker.dto.WordOfTheDay;
 public class SearchActivity extends AppCompatActivity {
 
 //    private static final String LOG_TAG = SearchActivity.class.getName();
+
     private static final int WORD_OF_THE_DAY_LOADER_ID = 1;
-    private String mWordOfTheDay;
-    private String mWordOfTheDayDefinition;
-    private String mWordOfTheDayExample;
+
+    private FrameLayout mSearchFrameLayout;
+
+    private FrameLayout mWordOfTheDayFrameLayout;
+
+    private TextView mWordOfTheDayWordTextView;
+
+    private TextView mWordOfTheDayDefinitionTextView;
+
+    private TextView mWordOfTheDayExampleTextView;
+
+    private FloatingActionButton mWordOfTheDayFab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        // Find View that shows Word-of-the-Day.
-        final TextView wordOfTheDayTextView = findViewById(R.id.word_of_the_day);
+        // Match layout views to their corresponding java variables
+        mSearchFrameLayout = findViewById(R.id.search_frame);
+        mWordOfTheDayFrameLayout = findViewById(R.id.word_of_the_day_frame);
 
-        // Setup FAB to open up WordActivity when looking for more info on the Word-of-the-day
-        FloatingActionButton fab = findViewById(R.id.fab);
+        mWordOfTheDayWordTextView = findViewById(R.id.word_of_the_day);
+        mWordOfTheDayDefinitionTextView = findViewById(R.id.word_of_the_day_definition);
+        mWordOfTheDayExampleTextView = findViewById(R.id.word_of_the_day_example);
 
-        // Set a click listener on Word-of-the-Day TextView.
-        fab.setOnClickListener(new View.OnClickListener() {
+        mWordOfTheDayFab = findViewById(R.id.word_of_the_day_fab);
+
+        // Add a click listener on Word-of-the-Day FAB to lookup more details.
+        mWordOfTheDayFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String word = wordOfTheDayTextView.getText().toString();
+                String word = mWordOfTheDayWordTextView.getText().toString();
                 startWordActivity(word);
             }
         });
 
-        // Find SearchView for word lookup.
-        SearchView wordLookupSearchView = findViewById(R.id.word_search_view);
+        SearchView wordLookupSearchview = findViewById(R.id.word_search_view);
 
-        // Set a query text listener on the word SearchView.
-        wordLookupSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        // Set a query text listener on the SearchView to lookup a word.
+        wordLookupSearchview.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String word) {
                 startWordActivity(word);
@@ -77,10 +90,6 @@ public class SearchActivity extends AppCompatActivity {
 
                     @Override
                     public void onLoaderReset(Loader<WordOfTheDay> loader) {
-                        // Loader reset, so we can clear out existing data.
-                        mWordOfTheDay = "";
-                        mWordOfTheDayDefinition = "";
-                        mWordOfTheDayExample = "";
                     }
                 };
 
@@ -105,52 +114,34 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     /**
-     * Update the screen to display the relevant information depending on the network state.
+     * Update the screen to display the relevant information depending on the data returned from
+     * the loader and the network state.
      *
      * @param wordOfTheDay is a WordOfTheDay object containing the Word-of-the-Day, including
      *                     definitions and example sentences.
+     * @param isConnected  is a boolean that flags for internet connection.
      */
     private void updateUI(WordOfTheDay wordOfTheDay, boolean isConnected) {
-        // Find reference to the {@link View}'s and {@link ViewGroup}'s.
-        FrameLayout searchFrameLayout = findViewById(R.id.search_frame);
-        FrameLayout wordOfTheDayFrameLayout = findViewById(R.id.word_of_the_day_frame);
-        TextView wordTextView = findViewById(R.id.word_of_the_day);
-        TextView definitionTextView = findViewById(R.id.word_of_the_day_definition);
-        TextView exampleTextView = findViewById(R.id.word_of_the_day_example);
-        FloatingActionButton fab = findViewById(R.id.fab);
+        String error_message;
 
         if (isConnected && wordOfTheDay != null) {
-            // Word from wordOfTheDay object.
-            mWordOfTheDay = wordOfTheDay.getWord();
+            // Get the Text
+            String wordOfTheDayWord = wordOfTheDay.getWord();
+            String wordOfTheDayDefinition = wordOfTheDay.getDefinitions().get(0).getText();
+            String wordOfTheDayExample = wordOfTheDay.getExamples().get(0).getText();
 
-            // Definition from wordOfTheDay object.
-            mWordOfTheDayDefinition = wordOfTheDay.getDefinitions().get(0).getText();
-
-            // Example from wordOfTheDay object.
-            mWordOfTheDayExample = wordOfTheDay.getExamples().get(0).getText();
-
-            // Set text to the {@link TextView}'s
-            wordTextView.setText(mWordOfTheDay);
-            definitionTextView.setText(mWordOfTheDayDefinition);
-            exampleTextView.setText(mWordOfTheDayExample);
+            // Set the text
+            mWordOfTheDayWordTextView.setText(wordOfTheDayWord);
+            mWordOfTheDayDefinitionTextView.setText(wordOfTheDayDefinition);
+            mWordOfTheDayExampleTextView.setText(wordOfTheDayExample);
         } else if (isConnected) {
-            // Disable Views & ViewGroups
-            fab.setVisibility(View.GONE);
-            searchFrameLayout.setVisibility(View.GONE);
-            wordOfTheDayFrameLayout.setVisibility(View.GONE);
-
-            // Update empty state with no connection error message
-            TextView emptyStateTextView = findViewById(R.id.empty_view);
-            emptyStateTextView.setText(R.string.bad_server_response);
+            // Show bad server response error message
+            error_message = getString(R.string.bad_server_response);
+            showErrorMessage(error_message);
         } else {
-            // Disable Views & ViewGroups
-            fab.setVisibility(View.GONE);
-            searchFrameLayout.setVisibility(View.GONE);
-            wordOfTheDayFrameLayout.setVisibility(View.GONE);
-
-            // Update empty state with no connection error message
-            TextView emptyStateTextView = findViewById(R.id.empty_view);
-            emptyStateTextView.setText(R.string.no_internet_connection);
+            // Show no internet connection error message
+            error_message = getString(R.string.no_internet_connection);
+            showErrorMessage(error_message);
         }
     }
 
@@ -169,4 +160,22 @@ public class SearchActivity extends AppCompatActivity {
         // Start the new activity
         startActivity(wordIntent);
     }
+
+    /**
+     * This method will make the error message visible and hide the rest of the layout
+     * View.
+     *
+     * @param message is the error message to be displayed.
+     */
+    private void showErrorMessage(String message) {
+        // First, hide the currently visible data
+        mWordOfTheDayFab.setVisibility(View.GONE);
+        mSearchFrameLayout.setVisibility(View.GONE);
+        mWordOfTheDayFrameLayout.setVisibility(View.GONE);
+
+        // Then, show the error
+        TextView emptyStateTextView = findViewById(R.id.empty_view);
+        emptyStateTextView.setText(message);
+    }
+
 }
