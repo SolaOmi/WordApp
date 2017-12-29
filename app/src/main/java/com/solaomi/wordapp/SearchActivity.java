@@ -133,6 +133,15 @@ public class SearchActivity extends AppCompatActivity {
             wordTextView.setText(mWordOfTheDay);
             definitionTextView.setText(mWordOfTheDayDefinition);
             exampleTextView.setText(mWordOfTheDayExample);
+        } else if (isConnected) {
+            // Disable Views & ViewGroups
+            fab.setVisibility(View.GONE);
+            searchFrameLayout.setVisibility(View.GONE);
+            wordOfTheDayFrameLayout.setVisibility(View.GONE);
+
+            // Update empty state with no connection error message
+            TextView emptyStateTextView = findViewById(R.id.empty_view);
+            emptyStateTextView.setText(R.string.bad_server_response);
         } else {
             // Disable Views & ViewGroups
             fab.setVisibility(View.GONE);

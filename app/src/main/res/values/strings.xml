@@ -2,7 +2,10 @@
     <string name="app_name">WordApp</string>
     <string name="search_words">Search Words</string>
     <string name="word_of_the_day">Word of the Day</string>
+
+    <!-- Error messages-->
     <string name="no_internet_connection">No internet connection</string>
+    <string name="bad_server_response">No service currently, try again later please</string>
 
     <!-- Fragment filler text-->
     <string name="definitions_fragment">A</string>
