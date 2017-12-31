@@ -49,12 +49,12 @@
                 style="@style/WordOfTheDay"
                 android:gravity="start" />
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/word_of_the_day_fab"
+            <Button
+                android:id="@+id/word_of_the_day_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_more_fab" />
+                android:text="@string/button_text"/>
         </LinearLayout>
     </ScrollView>
 

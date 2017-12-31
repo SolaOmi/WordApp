@@ -41,4 +41,7 @@
     <string name="no_definitions">No definitions found</string>
     <string name="no_related">No antonym or synonyms found</string>
     <string name="no_examples">No examples found</string>
+
+    <!-- word-of-the-day button text-->
+    <string name="button_text">More Info</string>
 </resources>

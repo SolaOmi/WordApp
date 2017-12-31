@@ -8,10 +8,10 @@ import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -34,7 +34,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private TextView mWordOfTheDayExampleTextView;
 
-    private FloatingActionButton mWordOfTheDayFab;
+    private Button mWordOfTheDayButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +49,10 @@ public class SearchActivity extends AppCompatActivity {
         mWordOfTheDayDefinitionTextView = findViewById(R.id.word_of_the_day_definition);
         mWordOfTheDayExampleTextView = findViewById(R.id.word_of_the_day_example);
 
-        mWordOfTheDayFab = findViewById(R.id.word_of_the_day_fab);
+        mWordOfTheDayButton = findViewById(R.id.word_of_the_day_button);
 
-        // Add a click listener on Word-of-the-Day FAB to lookup more details.
-        mWordOfTheDayFab.setOnClickListener(new View.OnClickListener() {
+        // Add a click listener on Word-of-the-Day button to lookup more details.
+        mWordOfTheDayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String word = mWordOfTheDayWordTextView.getText().toString();
@@ -173,7 +173,7 @@ public class SearchActivity extends AppCompatActivity {
      */
     private void showErrorMessage(String message) {
         // First, hide the currently visible data
-        mWordOfTheDayFab.setVisibility(View.GONE);
+        mWordOfTheDayButton.setVisibility(View.GONE);
         mWordLookupSearchView.setVisibility(View.GONE);
         mWordOfTheDayContainer.setVisibility(View.GONE);
 
