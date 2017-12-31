@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">WordApp</string>
     <string name="search_words">Search Words</string>
+
     <string name="word_of_the_day">Word of the Day</string>
+    <string name="definition"><u>Definition:</u></string>
+    <string name="example"><u>Example:</u></string>
 
     <!-- Error messages-->
     <string name="no_internet_connection">No internet connection</string>

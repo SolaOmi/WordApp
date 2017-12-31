@@ -11,7 +11,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -23,9 +23,9 @@ public class SearchActivity extends AppCompatActivity {
 
     private static final int WORD_OF_THE_DAY_LOADER_ID = 1;
 
-    private FrameLayout mSearchFrameLayout;
+    private SearchView mWordLookupSearchView;
 
-    private FrameLayout mWordOfTheDayFrameLayout;
+    private LinearLayout mWordOfTheDayContainer;
 
     private TextView mWordOfTheDayWordTextView;
 
@@ -41,8 +41,8 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         // Match layout views to their corresponding java variables
-        mSearchFrameLayout = findViewById(R.id.search_frame);
-        mWordOfTheDayFrameLayout = findViewById(R.id.word_of_the_day_frame);
+        mWordLookupSearchView = findViewById(R.id.word_search_view);
+        mWordOfTheDayContainer = findViewById(R.id.word_of_the_day_container);
 
         mWordOfTheDayWordTextView = findViewById(R.id.word_of_the_day);
         mWordOfTheDayDefinitionTextView = findViewById(R.id.word_of_the_day_definition);
@@ -59,10 +59,8 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        SearchView wordLookupSearchview = findViewById(R.id.word_search_view);
-
         // Set a query text listener on the SearchView to lookup a word.
-        wordLookupSearchview.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        mWordLookupSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String word) {
                 startWordActivity(word);
@@ -127,8 +125,13 @@ public class SearchActivity extends AppCompatActivity {
         if (isConnected && wordOfTheDay != null) {
             // Get the Text
             String wordOfTheDayWord = wordOfTheDay.getWord();
-            String wordOfTheDayDefinition = wordOfTheDay.getDefinitions().get(0).getText();
-            String wordOfTheDayExample = wordOfTheDay.getExamples().get(0).getText();
+            String wordOfTheDayDefinition =
+                    getString(R.string.definition) + " "
+                    + wordOfTheDay.getDefinitions().get(0).getText();
+
+            String wordOfTheDayExample =
+                    getString(R.string.example) + " "
+                    + wordOfTheDay.getExamples().get(0).getText();
 
             // Set the text
             mWordOfTheDayWordTextView.setText(wordOfTheDayWord);
@@ -170,8 +173,8 @@ public class SearchActivity extends AppCompatActivity {
     private void showErrorMessage(String message) {
         // First, hide the currently visible data
         mWordOfTheDayFab.setVisibility(View.GONE);
-        mSearchFrameLayout.setVisibility(View.GONE);
-        mWordOfTheDayFrameLayout.setVisibility(View.GONE);
+        mWordLookupSearchView.setVisibility(View.GONE);
+        mWordOfTheDayContainer.setVisibility(View.GONE);
 
         // Then, show the error
         TextView emptyStateTextView = findViewById(R.id.empty_view);
