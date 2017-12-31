@@ -10,6 +10,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
@@ -123,20 +124,20 @@ public class SearchActivity extends AppCompatActivity {
         String error_message;
 
         if (isConnected && wordOfTheDay != null) {
-            // Get the Text
+            // Get the Text (!!! do not put strings in xml file, it will mess up the underline)
             String wordOfTheDayWord = wordOfTheDay.getWord();
             String wordOfTheDayDefinition =
-                    getString(R.string.definition) + " "
+                    "<u>Definition:</u> "
                     + wordOfTheDay.getDefinitions().get(0).getText();
 
             String wordOfTheDayExample =
-                    getString(R.string.example) + " "
+                    "<u>Example:</u> "
                     + wordOfTheDay.getExamples().get(0).getText();
 
             // Set the text
             mWordOfTheDayWordTextView.setText(wordOfTheDayWord);
-            mWordOfTheDayDefinitionTextView.setText(wordOfTheDayDefinition);
-            mWordOfTheDayExampleTextView.setText(wordOfTheDayExample);
+            mWordOfTheDayDefinitionTextView.setText(Html.fromHtml(wordOfTheDayDefinition));
+            mWordOfTheDayExampleTextView.setText(Html.fromHtml(wordOfTheDayExample));
         } else if (isConnected) {
             // Show bad server response error message
             error_message = getString(R.string.bad_server_response);
