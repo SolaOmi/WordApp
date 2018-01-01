@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- list item dimensions-->
     <dimen name="list_item_divider_height">1dp</dimen>
-    <dimen name="white_rounded_card_margin">16dp</dimen>
+    <dimen name="no_width">0dp</dimen>
+    <dimen name="list_item_padding">8dp</dimen>
+
+    <!-- General font dimensions-->
     <dimen name="medium_text_size">16sp</dimen>
     <dimen name="large_text_size">22sp</dimen>
+
+    <!-- Word of the Day dimensions -->
     <dimen name="word_of_the_day_textview_margin">8dp</dimen>
-    <dimen name="elevation_level">8dp</dimen>
-    <dimen name="searchview_padding">8dp</dimen>
     <dimen name="word_of_the_day_container_padding">24dp</dimen>
+
+    <!-- SearchView dimensions-->
+    <dimen name="searchview_padding">8dp</dimen>
+
+    <!-- White rounded card dimensions -->
+    <dimen name="white_rounded_card_margin">16dp</dimen>
+    <dimen name="elevation_level">8dp</dimen>
 </resources>

@@ -36,4 +36,12 @@
         <item name="android:layout_margin">@dimen/word_of_the_day_textview_margin</item>
     </style>
 
+    <!-- Style for list item -->
+    <style name="ListItem">
+        <item name="android:padding">@dimen/list_item_padding</item>
+        <item name="android:layout_width">@dimen/no_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">fill</item>
+    </style>
+
 </resources>
