@@ -12,7 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -26,7 +26,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private SearchView mWordLookupSearchView;
 
-    private LinearLayout mWordOfTheDayContainer;
+    private ScrollView mWordOfTheDayContainer;
 
     private TextView mWordOfTheDayWordTextView;
 

@@ -17,11 +17,11 @@
         android:queryHint="@string/search_words" />
 
     <ScrollView
+        android:id="@+id/word_of_the_day_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/word_of_the_day_container"
             style="@style/WhiteRoundedCard"
             android:elevation="@dimen/elevation_level"
             android:orientation="vertical"
