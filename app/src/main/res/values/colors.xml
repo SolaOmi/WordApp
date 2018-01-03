@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#4A312A</color>
-    <color name="colorPrimaryDark">#2F1D1A</color>
+    <color name="colorPrimary">#0037FF</color>
+    <color name="colorPrimaryDark">#1A328C</color>
 
     <!-- Background color for app -->
-    <color name="tan_background">#4A3E3A</color>
+    <color name="light_gray_background">#D2D2D2</color>
 
     <!-- Color labels for attribute types -->
     <color name="antonym">#FF0000</color>
