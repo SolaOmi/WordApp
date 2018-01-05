@@ -12,7 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ScrollView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -26,7 +27,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private SearchView mWordLookupSearchView;
 
-    private ScrollView mWordOfTheDayContainer;
+    private LinearLayout mWordOfTheDayContainer;
 
     private TextView mWordOfTheDayWordTextView;
 
@@ -34,7 +35,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private TextView mWordOfTheDayExampleTextView;
 
-    private Button mWordOfTheDayButton;
+    private ImageView mWordnikApiAttributionImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +50,12 @@ public class SearchActivity extends AppCompatActivity {
         mWordOfTheDayDefinitionTextView = findViewById(R.id.word_of_the_day_definition);
         mWordOfTheDayExampleTextView = findViewById(R.id.word_of_the_day_example);
 
-        mWordOfTheDayButton = findViewById(R.id.word_of_the_day_button);
+        mWordnikApiAttributionImageView = findViewById(R.id.wordnik_api_attribution);
+
+        Button wordOfTheDayButton = findViewById(R.id.word_of_the_day_button);
 
         // Add a click listener on Word-of-the-Day button to lookup more details.
-        mWordOfTheDayButton.setOnClickListener(new View.OnClickListener() {
+        wordOfTheDayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String word = mWordOfTheDayWordTextView.getText().toString();
@@ -173,9 +176,9 @@ public class SearchActivity extends AppCompatActivity {
      */
     private void showErrorMessage(String message) {
         // First, hide the currently visible data
-        mWordOfTheDayButton.setVisibility(View.GONE);
         mWordLookupSearchView.setVisibility(View.GONE);
         mWordOfTheDayContainer.setVisibility(View.GONE);
+        mWordnikApiAttributionImageView.setVisibility(View.GONE);
 
         // Then, show the error
         TextView emptyStateTextView = findViewById(R.id.empty_view);

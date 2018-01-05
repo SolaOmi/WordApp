@@ -19,4 +19,8 @@
     <!-- White rounded card dimensions -->
     <dimen name="white_rounded_card_margin">16dp</dimen>
     <dimen name="elevation_level">8dp</dimen>
+
+    <!-- Wordnik API attribution dimensions -->
+    <dimen name="attribution_image_paddingTop">32dp</dimen>
+    <dimen name="attribution_image_paddingBottom">8dp</dimen>
 </resources>

@@ -1,30 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     android:background="@color/light_gray_background"
-    android:orientation="vertical"
     tools:context="com.solaomi.wordapp.SearchActivity">
 
-    <SearchView
-        android:id="@+id/word_search_view"
-        style="@style/WhiteRoundedCard"
-        android:elevation="@dimen/elevation_level"
-        android:iconifiedByDefault="false"
-        android:inputType="text"
-        android:padding="@dimen/searchview_padding"
-        android:queryHint="@string/search_words" />
-
-    <ScrollView
-        android:id="@+id/word_of_the_day_container"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
+
+        <SearchView
+            android:id="@+id/word_search_view"
+            style="@style/WhiteRoundedCard"
+            android:elevation="@dimen/elevation_level"
+            android:iconifiedByDefault="false"
+            android:layout_alignParentTop="true"
+            android:inputType="text"
+            android:padding="@dimen/searchview_padding"
+            android:queryHint="@string/search_words" />
 
         <LinearLayout
+            android:id="@+id/word_of_the_day_container"
             style="@style/WhiteRoundedCard"
             android:elevation="@dimen/elevation_level"
             android:orientation="vertical"
+            android:layout_below="@+id/word_search_view"
             android:paddingBottom="@dimen/word_of_the_day_container_padding">
 
             <TextView
@@ -56,14 +58,19 @@
                 android:layout_gravity="center"
                 android:text="@string/button_text"/>
         </LinearLayout>
-    </ScrollView>
 
-    <!-- Empty view is only visible when there is no Internet connection. -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/wordnik_api_attribution"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/word_of_the_day_container"
+            android:paddingTop="@dimen/attribution_image_paddingTop"
+            android:paddingBottom="@dimen/attribution_image_paddingBottom"
+            android:src="@drawable/wordnik_badge"
+            android:contentDescription="@string/wordnik_api_attribution_description" />
 
         <include layout="@layout/empty_view" />
 
     </RelativeLayout>
-</LinearLayout>
+
+</ScrollView>
