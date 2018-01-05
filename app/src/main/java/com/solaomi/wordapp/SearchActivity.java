@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
@@ -68,12 +69,29 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String word) {
                 startWordActivity(word);
-                return false;
+                return true;
             }
 
+            // Links the Wordnik Logo Image to Wordnik API website per the
+            // Attribution Requirement
             @Override
-            public boolean onQueryTextChange(String s) {
-                return false;
+            public boolean onQueryTextChange(final String word) {
+                mWordnikApiAttributionImageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String url = getString(R.string.wordnik_base_url) + word;
+
+                        Uri webpage = Uri.parse(url);
+
+                        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+
+                        if (intent.resolveActivity(getPackageManager()) != null) {
+                            startActivity(intent);
+                        }
+                    }
+                });
+
+                return true;
             }
         });
 

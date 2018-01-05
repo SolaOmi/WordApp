@@ -45,8 +45,9 @@
     <!-- word-of-the-day button text-->
     <string name="button_text">More Info</string>
 
-    <!-- Image descriptions -->
+    <!-- Wordnik API Attribution strings -->
     <string name="wordnik_api_attribution_description">
         The Wordnik API logo
     </string>
+    <string name="wordnik_base_url">http://www.wordnik.com/words/</string>
 </resources>
