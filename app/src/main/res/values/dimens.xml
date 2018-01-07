@@ -15,6 +15,7 @@
 
     <!-- SearchView dimensions-->
     <dimen name="searchview_padding">8dp</dimen>
+    <dimen name="searchview_height">48dp</dimen>
 
     <!-- White rounded card dimensions -->
     <dimen name="white_rounded_card_margin">16dp</dimen>
